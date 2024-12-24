@@ -38,7 +38,7 @@ function funcao_objetivo(tipos)
 end
 
 # Criando um vetor de GPUs com capacidade inicial
-gpus = [GPU(capacity=INITIAL_CAPACITY, prn_list=Vector{PRN}()) for _ in 1:NUM_GPUs]
+gpus = [GPU(capacity=INITIAL_CAPACITY, prn_list=Vector{PRN}()) for gpus in 1:NUM_GPUs]
 
 # Solução Inicial
 # Iterar item por item e alocar item atual na primeira GPU com espaço suficiente.
@@ -55,7 +55,7 @@ function initial_solution(prns, gpus)
 end
 
 
-# Inicializa quatia de GPU's que cada tipo utiliza, para fazer isso adiciona tipos a um conjunto de forma que não há repetições e então adiciona 1 ao num_gpus de cada tipo presente em cada GPU.
+# Inicializa quantia de GPU's que cada tipo utiliza, para fazer isso adiciona tipos a um conjunto de forma que não há repetições e então adiciona 1 ao num_gpus de cada tipo presente em cada GPU.
 function update_typeList(gpus)
     # Cria um conjunto para evitar repetições de tipos presentes em cada GPU
     for gpu in gpus
@@ -140,10 +140,10 @@ function metropolis(s, T, melhor_sol, gpus)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         s_linha = vizinhanca(s, gpus)
         
-        # Calcula a diferença de custo/valor entre a solução vizinha e a atual
+        # Calcula a diferença de custo/valor entre a solução vizinha
         delta = funcao_objetivo(s_linha) - funcao_objetivo(s)
         
-        # Se a nova solução for melhor (delta <= 0), atualiza s
+        # Se a solução vizinha for melhor, ou seja, levar a um valor da função objetivo menor (delta <= 0), atualiza s.
         if delta <= 0
             s = s_linha
             melhor_sol = s
