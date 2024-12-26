@@ -1,10 +1,5 @@
-const global NUM_GPUs = 3
-const global CAPACIDADE_MAX = 50
-const global NUM_TIPOS = 2
-const global NUM_PRNs = 4
-
-const global LIMITE_TENT_PRN = 5
-const global LIMITE_TENT_GPU = 5
+const global LIMITE_TENT_PRN = 20
+const global LIMITE_TENT_GPU = 20
 const global LIMITE_TENT_CAPACIDADE = ceil(Int, NUM_GPUs / 2)
 
 const global ERRO = -1
@@ -75,7 +70,7 @@ function vizinhanca(solucao)
     contTipoGPU = deepcopy(solucao.contTipoGPU)
 
     tentativasMov = 0
-    while tentativasMov <= LIMITE_TENT_CAPACIDADE
+    while true
         # Gera PRNs aleatórias e aplica heurística de escolha para troca.
         prn, tipoPRN, id_gpu_origem = escolhePRN(listaPRN, contTipoGPU)
 
@@ -83,9 +78,17 @@ function vizinhanca(solucao)
         id_gpu_destino = escolheGPUDestino(id_gpu_origem, prn, listaGPU, contTipoGPU)
         
         if (id_gpu_destino != ERRO)
+            println("Foi possível encontrar uma GPU de destino para a PRN ", prn.id)
             break
         end
+
         tentativasMov += 1
+        # Não achou espaço para a PRN em nenhuma GPU
+        if (tentativasMov > LIMITE_TENT_CAPACIDADE)
+            #println("===============================================================")
+            #println("Não foi possível encontrar uma GPU de destino para a PRN ", prn.id)
+            return solucao
+        end
     end
 
     # Muda GPU onde PRN está alocada
@@ -109,7 +112,7 @@ function vizinhanca(solucao)
     listaGPU[id_gpu_origem].capacidadeRestante += prn.custo
     listaGPU[id_gpu_destino].capacidadeRestante -= prn.custo
 
-    println("PRN: ", prn.id, ", de GPU: ", id_gpu_origem, " para GPU: ", id_gpu_destino)
+    #println("PRN: ", prn.id, ", de GPU: ", id_gpu_origem, " para GPU: ", id_gpu_destino)
 
     valorFuncObj = sum(gpu.num_tipos for gpu in listaGPU)
 

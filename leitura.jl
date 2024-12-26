@@ -1,3 +1,24 @@
+#include("structs.jl")
+
+function printLerArquivo(file_path)
+    NUM_GPUs, CAPACIDADE_MAX, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN = lerArquivo(file_path)
+    
+    println("Número de GPUs: ", NUM_GPUs)
+    println("Capacidade Máxima de VRAM: ", CAPACIDADE_MAX)
+    println("Número de Tipos Diferentes: ", NUM_TIPOS)
+    println("Número de PRNs: ", NUM_PRNs)
+    
+    println("\nLista de GPUs:")
+    for gpu in listaGPU
+        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.num_tipos), Capacidade Restante: $(gpu.capacidadeRestante)")
+    end
+    
+    println("\nLista de PRNs:")
+    for prn in listaPRN
+        println("PRN ID: $(prn.id), GPU ID: $(prn.gpu_id), Custo: $(prn.custo), Tipo: $(prn.tipo)")
+    end
+end
+
 function lerArquivo(file_path)
     # Lê o arquivo e processa as linhas não vazias
     lines = filter(x -> !isempty(x), readlines(file_path))
@@ -29,3 +50,10 @@ function lerArquivo(file_path)
 
     return NUM_GPUs, CAPACIDADE_MAX, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN
 end
+
+function teste()
+    printLerArquivo("dog_0.txt")
+end
+
+# Descomentar include de structs.jl e chamada da função teste() para testar.
+#teste()

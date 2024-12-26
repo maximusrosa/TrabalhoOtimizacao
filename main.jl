@@ -10,16 +10,18 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     for prn in listaPRN
         for gpu in listaGPU
             if gpu.capacidadeRestante >= prn.custo
-                listaPRN[prn.id].gpu_id = gpu.id
+                prn.gpu_id = gpu.id
 
                 # Atualiza a capacidade restante da GPU
-                listaGPU[gpu.id].capacidadeRestante -= prn.custo
+                gpu.capacidadeRestante -= prn.custo
 
                 # Atualiza a matriz contTipoGPU e num_tipos da GPU
                 contTipoGPU[gpu.id, prn.tipo] += 1
                 if(contTipoGPU[gpu.id, prn.tipo] == 1)
-                    listaGPU[gpu.id].num_tipos += 1
+                    gpu.num_tipos += 1
                 end
+                println("GPU: ", gpu.id, " Quantidade de tipos: ", contTipoGPU[gpu.id, prn.tipo])
+                #println("Atualizando GPU ID $(gpu.id): num_tipos=$(gpu.num_tipos), capacidadeRestante=$(gpu.capacidadeRestante)")
                 break
             end
         end
@@ -31,32 +33,33 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
 end
 
 # Função para o Algoritmo de Metropolis
-function metropolis(s, T, melhor_sol)
+function metropolis(s, T, melhorSol)
     count = 0
+    novaMelhorSol = melhorSol
     while (count <= MAX_STAGNANT_ITER)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         sLinha = vizinhanca(s)
         
-        # Calcula a diferença de custo/valor entre a solução vizinha
-        delta = sLinha.valorFO - s.valorFO
+        println("Valor função objetivo obtido na função vizinhança: ", sLinha.valorFO)
         
-        # Se a solução vizinha for melhor, ou seja, levar a um valor da função objetivo menor (delta <= 0), atualiza s.
-        if delta <= 0
-            s = sLinha
-            melhor_sol = s
+        # Se a solução vizinha for melhor, ou seja, levar a um valor da função objetivo menor, atualiza s e melhor solução.
+        if sLinha.valorFO < s.valorFO
+            s = deepcopy(sLinha)
+            novaMelhorSol = deepcopy(sLinha)
             count = 0
         else
             # Caso contrário, atualiza com uma certa probabilidade
+            delta = sLinha.valorFO - s.valorFO
             probabilidade = exp(-delta / T)
             if rand() < probabilidade
-                s = sLinha
+                s = deepcopy(sLinha)
             end
             count += 1
         end
     end
     
     # Retorna a solução final após certa quantia de iterações (MAX_STAGNANT_ITER) não causarem melhora na função objetivo.
-    return melhor_sol
+    return novaMelhorSol
 end
 
 
@@ -73,7 +76,7 @@ function main()
     file_path = "dog_0.txt"
     numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN = lerArquivo(file_path)
     
-    contTipoGPU = Matrix{UInt8}(undef, numGPUs, numTipos)
+    contTipoGPU = fill(UInt8(0), numGPUs, numTipos)
     solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     
     T = 1000
@@ -81,7 +84,8 @@ function main()
     temperaturaMin = 0.1
 
     melhorSol = simulatedAnnealing(solInicial, T, alpha, temperaturaMin)
-    println("Melhor solução encontrada: ", melhorSol)
+    println("Melhor solução encontrada: ", melhorSol.valorFO)
+    #printSolucao(melhorSol)
 end
 
 main()
