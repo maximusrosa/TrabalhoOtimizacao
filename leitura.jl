@@ -24,31 +24,31 @@ function lerArquivo(file_path)
     lines = filter(x -> !isempty(x), readlines(file_path))
 
     # Linha 1: Número de GPUs (n)
-    NUM_GPUs = parse(Int, lines[1])
+    numGPUs = parse(Int, lines[1])
 
     # Linha 2: Quantidade de VRAM (V)
-    CAPACIDADE_MAX = parse(Int, lines[2])
+    capacidadeGPU = parse(Int, lines[2])
 
     # Linha 3: Número de tipos diferentes (|T|)
-    NUM_TIPOS = parse(Int, lines[3])
+    numTipos = parse(Int, lines[3])
 
     # Linha 4: Número de PRNs (m)
-    NUM_PRNs = parse(Int, lines[4])
+    numPRNs = parse(Int, lines[4])
 
-    listaGPU = [GPU(i, 0, CAPACIDADE_MAX) for i in 1:NUM_GPUs]
+    listaGPU = [GPU(i, 0, capacidadeGPU, Int[]) for i in 1:numGPUs]
     
-    listaPRN = Vector{PRN}(undef, NUM_PRNs)
+    listaPRN = Vector{PRN}(undef, numPRNs)
 
     # Processa as PRNs nas próximas linhas
-    for j in 1:NUM_PRNs[]
+    for j in 1:numPRNs
         prn_data = split(lines[4 + j])
         tipo = parse(Int, prn_data[1]) + 1 # Tipo começa em 0
         custo = parse(Int, prn_data[2])
 
         listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpu_id = 0)
     end
-
-    return NUM_GPUs, CAPACIDADE_MAX, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN
+    
+    return numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN
 end
 
 function teste()
@@ -57,3 +57,5 @@ end
 
 # Descomentar include de structs.jl e chamada da função teste() para testar.
 #teste()
+
+#export numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN

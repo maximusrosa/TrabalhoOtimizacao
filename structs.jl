@@ -9,6 +9,7 @@ mutable struct GPU
     id::Int
     num_tipos::Int
     capacidadeRestante::Int
+    listaIDsPRN::Vector{Int}
 end
 
 mutable struct Solucao
