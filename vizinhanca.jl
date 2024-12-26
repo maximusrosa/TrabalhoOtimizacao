@@ -1,8 +1,3 @@
-module Vizinhanca
-
-include("structs.jl")
-using .Structs
-
 const global NUM_GPUs = 3
 const global CAPACIDADE_MAX = 50
 const global NUM_TIPOS = 2
@@ -79,7 +74,8 @@ function vizinhanca(solucao)
     listaGPU = deepcopy(solucao.listaGPU)
     contTipoGPU = deepcopy(solucao.contTipoGPU)
 
-    while true
+    tentativasMov = 0
+    while tentativasMov <= LIMITE_TENT_CAPACIDADE
         # Gera PRNs aleatórias e aplica heurística de escolha para troca.
         prn, tipoPRN, id_gpu_origem = escolhePRN(listaPRN, contTipoGPU)
 
@@ -89,6 +85,7 @@ function vizinhanca(solucao)
         if (id_gpu_destino != ERRO)
             break
         end
+        tentativasMov += 1
     end
 
     # Muda GPU onde PRN está alocada
@@ -135,5 +132,3 @@ function print_solucao(solucao)
 end
 
 export vizinhanca, print_solucao
-
-end # module

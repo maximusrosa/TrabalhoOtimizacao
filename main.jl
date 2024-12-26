@@ -1,10 +1,8 @@
+include("structs.jl")
 include("leitura.jl")
 include("vizinhanca.jl")
 
-using .Structs
-using .Vizinhanca
-
-const global MAX_STAGNANT_ITER = 20
+const global MAX_STAGNANT_ITER = 5
 
 # Solução Inicial
 # Iterar item por item e alocar item atual na primeira GPU com espaço suficiente.
@@ -44,7 +42,7 @@ function metropolis(s, T, melhor_sol)
         
         # Se a solução vizinha for melhor, ou seja, levar a um valor da função objetivo menor (delta <= 0), atualiza s.
         if delta <= 0
-            s = s_linha
+            s = sLinha
             melhor_sol = s
             count = 0
         else

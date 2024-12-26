@@ -1,7 +1,3 @@
-include("structs.jl")
-
-using .Structs
-
 function lerArquivo(file_path)
     # Lê o arquivo e processa as linhas não vazias
     lines = filter(x -> !isempty(x), readlines(file_path))

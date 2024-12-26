@@ -1,5 +1,3 @@
-module Structs
-
 mutable struct PRN
     id::Int
     gpu_id::Int
@@ -19,5 +17,3 @@ mutable struct Solucao
     contTipoGPU::Matrix{UInt8} # Matriz que indica quantidade de PRNs de um tipo em cada GPU.
     valorFO::Int
 end
-
-end # module
