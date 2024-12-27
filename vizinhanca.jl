@@ -1,13 +1,12 @@
-const global LIMITE_TENT_PRN = 20
-const global LIMITE_TENT_GPU = 20
-const global LIMITE_TENT_CAPACIDADE = 20
+const global LIMITE_TENT_PRN = 2000
+const global LIMITE_TENT_GPU = 2000
+const global LIMITE_TENT_CAPACIDADE = 2000
 const global ERRO = -1
 
 function escolhePRN(listaPRN, contTipoGPU)
     local prn
     local tipoPRN
     local gpuOrigemID
-    global NUM_PRNs
 
     tentativasPRN = 0
     while (tentativasPRN <= LIMITE_TENT_PRN)
@@ -29,7 +28,6 @@ function escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU)
     local gpuDestinoID
     local destTemTipo
     local temEspaco
-    global NUM_GPUs
 
     tentativasGPU = 0
     while (tentativasGPU < LIMITE_TENT_GPU)
@@ -68,7 +66,6 @@ function vizinhanca(solucao)
     local tipoPRN
     local gpuOrigemID
     local gpuDestinoID
-    global NUM_GPUs
 
     local listaPRN = deepcopy(solucao.listaPRN)
     local listaGPU = deepcopy(solucao.listaGPU)

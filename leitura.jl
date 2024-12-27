@@ -58,3 +58,4 @@ filePath = "dog/dog_7.txt"
 #testeLerArquivo(filePath)
 
 const global NUM_GPUs, CAPACIDADE_GPU, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN = lerArquivo(filePath)
+

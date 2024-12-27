@@ -1,13 +1,11 @@
 include("leitura.jl")
 include("vizinhanca.jl")
 
-const global MAX_STAGNANT_ITER = 50
+const global MAX_STAGNANT_ITER = 1000
 
 
 # Solução Inicial
 function solucaoInicial(contTipoGPU)
-    global listaPRN, listaGPU
-
     for prn in listaPRN
         for gpu in listaGPU
             if gpu.capacidadeRestante >= prn.custo
@@ -64,6 +62,7 @@ function metropolis(s, T, melhorSol)
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
             novaMelhorSol = deepcopy(sLinha)
+            println(" Tentativas: ", count, " Valor melhor solução: ", novaMelhorSol.valorFO)
             count = 0
         end
 
@@ -92,21 +91,17 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima)
     while T > temperatura_minima
         melhorSol = metropolis(s, T, melhorSol)
         T = alpha * T
-        println(" Valor melhor solução: ", melhorSol.valorFO)
     end
 
     return melhorSol  # Retorna a melhor solução encontrada, quando T chegar a uma temperatura minima.
 end
 
 function main()
-    global NUM_GPUs, NUM_TIPOS, listaGPU, listaPRN
-    
-
     contTipoGPU = fill(UInt8(0), NUM_GPUs, NUM_TIPOS)
     solInicial = solucaoInicial(contTipoGPU)
     
-    T = 1000
-    alpha = 0.9
+    T = 2000
+    alpha = 0.98
     temperaturaMin = 0.1
 
     melhorSol = simulatedAnnealing(solInicial, T, alpha, temperaturaMin)
