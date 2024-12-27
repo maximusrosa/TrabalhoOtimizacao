@@ -1,4 +1,4 @@
-#include("structs.jl")
+include("structs.jl")
 
 function printLerArquivo(file_path)
     NUM_GPUs, CAPACIDADE_MAX, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN = lerArquivo(file_path)
@@ -47,15 +47,32 @@ function lerArquivo(file_path)
 
         listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpu_id = 0)
     end
+
+    # Solução mínima, melhor solução que pode ser factível.
+    #=
+    somaTipos = fill(0, numTipos)
+    for prn in listaPRN
+        somaTipos[prn.tipo] += prn.custo
+    end
+    count = 1
+    quantTotalGPUs = 0
+    for soma in somaTipos
+        quantGPUs = ceil(soma / 100)
+        println("Tipo ", count, ": ", quantGPUs) # 100 é a capacidade da GPU
+        count += 1
+        quantTotalGPUs += quantGPUs
+    end
+    println("Solução mínima: ", quantTotalGPUs)
+    =#
     
     return numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN
 end
 
 function teste()
-    printLerArquivo("dog_0.txt")
+    lerArquivo("dog_1.txt")
 end
 
 # Descomentar include de structs.jl e chamada da função teste() para testar.
-#teste()
+teste()
 
 #export numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN
