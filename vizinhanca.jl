@@ -1,39 +1,39 @@
 const global LIMITE_TENT_PRN = 20
 const global LIMITE_TENT_GPU = 20
 const global LIMITE_TENT_CAPACIDADE = 20
-
 const global ERRO = -1
 
-# Gera PRNs aleatórias e aplica heurística de escolha para troca.
 function escolhePRN(listaPRN, contTipoGPU)
     local prn
     local tipoPRN
-    local id_gpu_origem
+    local gpuOrigemID
+    global NUM_PRNs
 
     tentativasPRN = 0
     while (tentativasPRN <= LIMITE_TENT_PRN)
-        prn = listaPRN[rand(1:end)]
+        prn = listaPRN[rand(1:NUM_PRNs)]
         tipoPRN = prn.tipo
-        id_gpu_origem = prn.gpu_id
+        gpuOrigemID = prn.gpuID
 
         # Escolhe a PRN aleatória para fazer a troca se está 'isolada' em relação ao seu tipo.
-        if (contTipoGPU[id_gpu_origem, tipoPRN] == 1)
+        if (contTipoGPU[gpuOrigemID, tipoPRN] == 1)
             break
         end
         tentativasPRN += 1
     end
 
-    return prn, tipoPRN, id_gpu_origem
+    return prn, tipoPRN, gpuOrigemID
 end
 
-# Gera GPUs de destino aleatórias e tenta escolher uma que já tem o tipo da PRN, para melhorar a função objetivo.
-function escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU, numGPUs)
+function escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU)
     local gpuDestinoID
+    local destTemTipo
     local temEspaco
+    global NUM_GPUs
 
     tentativasGPU = 0
     while (tentativasGPU < LIMITE_TENT_GPU)
-        gpuDestinoID = rand(setdiff(1:numGPUs, [gpuOrigemID]))
+        gpuDestinoID = rand(setdiff(1:NUM_GPUs, [gpuOrigemID]))
 
         destTemTipo = contTipoGPU[gpuDestinoID, prn.tipo] > 0
         temEspaco = listaGPU[gpuDestinoID].capacidadeRestante >= prn.custo
@@ -48,7 +48,7 @@ function escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU, numGPUs)
     # Se não tiver encontrado uma GPU com capacidade para essa PRN, procura outras.
     tentativasGPU = 0
     while (!temEspaco && tentativasGPU < LIMITE_TENT_CAPACIDADE)
-        gpuDestinoID = rand(setdiff(1:numGPUs, [gpuOrigemID]))
+        gpuDestinoID = rand(setdiff(1:NUM_GPUs, [gpuOrigemID]))
         temEspaco = listaGPU[gpuDestinoID].capacidadeRestante >= prn.custo
         tentativasGPU += 1
     end
@@ -63,23 +63,24 @@ function escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU, numGPUs)
     end
 end
 
-function vizinhanca(solucao, numGPUs)
+function vizinhanca(solucao)
     local prn
     local tipoPRN
-    local id_gpu_origem
+    local gpuOrigemID
     local gpuDestinoID
+    global NUM_GPUs
 
-    listaPRN = deepcopy(solucao.listaPRN)
-    listaGPU = deepcopy(solucao.listaGPU)
-    contTipoGPU = deepcopy(solucao.contTipoGPU)
+    local listaPRN = deepcopy(solucao.listaPRN)
+    local listaGPU = deepcopy(solucao.listaGPU)
+    local contTipoGPU = deepcopy(solucao.contTipoGPU)
 
     tentativasMov = 0
     while true
         # Gera PRNs aleatórias e aplica heurística de escolha para troca.
-        prn, tipoPRN, id_gpu_origem = escolhePRN(listaPRN, contTipoGPU)
+        prn, tipoPRN, gpuOrigemID = escolhePRN(listaPRN, contTipoGPU)
 
-        # Gera GPUs de destino aleatórias e tenta escolher uma que já tem o tipo da PRN, para melhorar a função objetivo.
-        gpuDestinoID = escolheGPUDestino(id_gpu_origem, prn, listaGPU, contTipoGPU, numGPUs)
+        # Gera GPUs de destino aleatórias e tenta escolher uma que já tem o tipo da PRN, para diminuir o valor da função objetivo.
+        gpuDestinoID = escolheGPUDestino(gpuOrigemID, prn, listaGPU, contTipoGPU)
         
         if (gpuDestinoID != ERRO)
             break
@@ -94,53 +95,52 @@ function vizinhanca(solucao, numGPUs)
     end
 
     # Muda GPU onde PRN está alocada
-    prn.gpu_id = gpuDestinoID
+    prn.gpuID = gpuDestinoID
 
     # Adiciona PRN a lista de PRNs da GPU destino
     push!(listaGPU[gpuDestinoID].listaIDsPRN, prn.id)
     
     # Remove PRN da GPU origem
-    indexPRN = findfirst(x -> x == prn.id, listaGPU[id_gpu_origem].listaIDsPRN)
-    deleteat!(listaGPU[id_gpu_origem].listaIDsPRN, indexPRN)
+    indexPRN = findfirst(x -> x == prn.id, listaGPU[gpuOrigemID].listaIDsPRN)
+    deleteat!(listaGPU[gpuOrigemID].listaIDsPRN, indexPRN)
 
     # Atualiza numero de tipos da GPU origem
-    if contTipoGPU[id_gpu_origem, tipoPRN] == 1
-        listaGPU[id_gpu_origem].num_tipos -= 1
+    if contTipoGPU[gpuOrigemID, tipoPRN] == 1
+        listaGPU[gpuOrigemID].numTipos -= 1
     end
 
     # Atualiza numero de tipos da GPU destino
     if contTipoGPU[gpuDestinoID, tipoPRN] == 0
-        listaGPU[gpuDestinoID].num_tipos += 1
+        listaGPU[gpuDestinoID].numTipos += 1
     end
 
     # Atualiza na matriz nova quantidade de PRNs com tipoPRN na GPU
-    contTipoGPU[id_gpu_origem, tipoPRN] -= 1
+    contTipoGPU[gpuOrigemID, tipoPRN] -= 1
     contTipoGPU[gpuDestinoID, tipoPRN] += 1
 
     # Atualiza capacidades restantes das GPUs
-    listaGPU[id_gpu_origem].capacidadeRestante += prn.custo
+    listaGPU[gpuOrigemID].capacidadeRestante += prn.custo
     listaGPU[gpuDestinoID].capacidadeRestante -= prn.custo
 
-    #println("PRN: ", prn.id, ", de GPU: ", id_gpu_origem, " para GPU: ", gpuDestinoID)
+    #println("PRN: ", prn.id, ", de GPU: ", gpuOrigemID, " para GPU: ", gpuDestinoID)
 
-    valorFO = sum(gpu.num_tipos for gpu in listaGPU)
+    valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
 
+
 function print_solucao(solucao)
     println("PRNs:")
     for prn in solucao.listaPRN
-        println("PRN ID: $(prn.id), Tipo: $(prn.tipo), GPU ID: $(prn.gpu_id), Custo: $(prn.custo)")
+        println("PRN ID: $(prn.id), Tipo: $(prn.tipo), GPU ID: $(prn.gpuID), Custo: $(prn.custo)")
     end
     println("\nGPUs:")
     for gpu in solucao.listaGPU
-        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.num_tipos), Capacidade: $(gpu.capacidadeRestante)")
+        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.numTipos), Capacidade: $(gpu.capacidadeRestante)")
     end
     println("\nMatriz contTipoGPU:")
     println(solucao.contTipoGPU)
     println("\nValor da Função Objetivo: $(solucao.valorFO)")
 end
-
-export vizinhanca, print_solucao
