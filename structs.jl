@@ -1,13 +1,14 @@
 mutable struct PRN
     id::Int
-    gpu_id::Int
+    gpuID::Int
     custo::Int
     tipo::Int
 end
 
+
 mutable struct GPU
     id::Int
-    num_tipos::Int
+    numTipos::Int
     capacidadeRestante::Int
     listaIDsPRN::Vector{Int}
 end
@@ -24,12 +25,12 @@ function printSolucao(solucao::Solucao)
     
     println("\nLista de GPUs:")
     for gpu in solucao.listaGPU
-        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.num_tipos), Capacidade Restante: $(gpu.capacidadeRestante)")
+        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.numTipos), Capacidade Restante: $(gpu.capacidadeRestante)")
     end
     
     println("\nLista de PRNs:")
     for prn in solucao.listaPRN
-        println("PRN ID: $(prn.id), GPU ID: $(prn.gpu_id), Custo: $(prn.custo), Tipo: $(prn.tipo)")
+        println("PRN ID: $(prn.id), GPU ID: $(prn.gpuID), Custo: $(prn.custo), Tipo: $(prn.tipo)")
     end
     
     #println("\nMatriz contTipoGPU:")

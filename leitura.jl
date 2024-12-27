@@ -1,27 +1,8 @@
 include("structs.jl")
 
-function printLerArquivo(file_path)
-    NUM_GPUs, CAPACIDADE_MAX, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN = lerArquivo(file_path)
-    
-    println("Número de GPUs: ", NUM_GPUs)
-    println("Capacidade Máxima de VRAM: ", CAPACIDADE_MAX)
-    println("Número de Tipos Diferentes: ", NUM_TIPOS)
-    println("Número de PRNs: ", NUM_PRNs)
-    
-    println("\nLista de GPUs:")
-    for gpu in listaGPU
-        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.num_tipos), Capacidade Restante: $(gpu.capacidadeRestante)")
-    end
-    
-    println("\nLista de PRNs:")
-    for prn in listaPRN
-        println("PRN ID: $(prn.id), GPU ID: $(prn.gpu_id), Custo: $(prn.custo), Tipo: $(prn.tipo)")
-    end
-end
-
-function lerArquivo(file_path)
+function lerArquivo(filePath)
     # Lê o arquivo e processa as linhas não vazias
-    lines = filter(x -> !isempty(x), readlines(file_path))
+    lines = filter(x -> !isempty(x), readlines(filePath))
 
     # Linha 1: Número de GPUs (n)
     numGPUs = parse(Int, lines[1])
@@ -45,7 +26,7 @@ function lerArquivo(file_path)
         tipo = parse(Int, prn_data[1]) + 1 # Tipo começa em 0
         custo = parse(Int, prn_data[2])
 
-        listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpu_id = 0)
+        listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpuID = 0)
     end
 
     # Solução mínima, melhor solução que pode ser factível.
@@ -68,11 +49,35 @@ function lerArquivo(file_path)
     return numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN
 end
 
+function testeLerArquivo(filePath)
+    numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN = lerArquivo(filePath)
+    
+    println("Número de GPUs: ", numGPUs)
+    println("Capacidade Máxima de VRAM: ", capacidadeGPU)
+    println("Número de Tipos Diferentes: ", numTipos)
+    println("Número de PRNs: ", numPRNs)
+    
+    println("\nLista de GPUs:")
+    for gpu in listaGPU
+        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.numTipos), Capacidade Restante: $(gpu.capacidadeRestante)")
+    end
+    
+    println("\nLista de PRNs:")
+    for prn in listaPRN
+        println("PRN ID: $(prn.id), GPU ID: $(prn.gpuID), Custo: $(prn.custo), Tipo: $(prn.tipo)")
+    end
+end
+
+
 function teste()
-    lerArquivo("dog_1.txt")
+    testeLerArquivo("dog_1.txt")
 end
 
 # Descomentar include de structs.jl e chamada da função teste() para testar.
-teste()
+#teste()
 
-#export numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN
+# Arquivo de entrada
+filePath = "dog/dog_7.txt"
+
+const global NUM_GPUs, CAPACIDADE_GPU, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN = lerArquivo(filePath)
+
