@@ -55,14 +55,14 @@ function metropolis(s, T, melhorSol)
     novaMelhorSol = deepcopy(melhorSol)
     while (count <= MAX_STAGNANT_ITER)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
-        sLinha = vizinhanca(s)
+        sLinha = vizinhancaTroca(s)
         
         #println("Valor função objetivo obtido na função vizinhança: ", sLinha.valorFO)
         
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
             novaMelhorSol = deepcopy(sLinha)
-            println(" Tentativas: ", count, " Valor melhor solução: ", novaMelhorSol.valorFO)
+            println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
             count = 0
         end
 
