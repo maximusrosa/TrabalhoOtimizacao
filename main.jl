@@ -5,20 +5,12 @@ const global MAX_STAGNANT_ITER = 1000
 
 
 # Solução Inicial
-function solucaoInicial(contTipoGPU)
+function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     for prn in listaPRN
         for gpu in listaGPU
             if gpu.capacidadeRestante >= prn.custo
-                prn.gpuID = gpu.id
-                gpu.listaIDsPRN = push!(gpu.listaIDsPRN, prn.id)
-                # Atualiza a capacidade restante da GPU
-                gpu.capacidadeRestante -= prn.custo
+                addPRN(gpu, prn)
 
-                # Atualiza a matriz contTipoGPU e numTipos da GPU
-                contTipoGPU[gpu.id, prn.tipo] += 1
-                if(contTipoGPU[gpu.id, prn.tipo] == 1)
-                    gpu.numTipos += 1
-                end
                 #println("GPU: ", gpu.id, " Quantidade de tipos: ", contTipoGPU[gpu.id, prn.tipo])
                 #println("Atualizando GPU ID $(gpu.id): Num Tipos=$(gpu.numTipos), capacidadeRestante=$(gpu.capacidadeRestante)")
                 break
@@ -97,13 +89,23 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima)
 end
 
 function main()
-    contTipoGPU = fill(UInt8(0), NUM_GPUs, NUM_TIPOS)
-    solInicial = solucaoInicial(contTipoGPU)
+    # Arquivo de entrada
+    filePath = "dog/dog_7.txt"
+
+    n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
+
+    global NUM_GPUs = n
+    global CAPACIDADE_GPU = V
+    global NUM_TIPOS = T
+    global NUM_PRNs = m
+
+    solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     
     T = 2000
     alpha = 0.98
     temperaturaMin = 0.1
 
+    print("Solução Inicial: ", solInicial.valorFO)
     melhorSol = simulatedAnnealing(solInicial, T, alpha, temperaturaMin)
     println("Melhor solução encontrada: ", melhorSol.valorFO)
     #printSolucao(melhorSol)

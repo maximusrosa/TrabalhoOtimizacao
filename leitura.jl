@@ -1,8 +1,14 @@
 include("structs.jl")
 
 function lerArquivo(filePath)
+    local lines
+
     # Lê o arquivo e processa as linhas não vazias
-    lines = filter(x -> !isempty(x), readlines(filePath))
+    try
+        lines = filter(x -> !isempty(x), readlines(filePath))
+    catch e
+        throw(e)
+    end
 
     # Linha 1: Número de GPUs (n)
     numGPUs = parse(Int, lines[1])
@@ -23,7 +29,7 @@ function lerArquivo(filePath)
     # Processa as PRNs nas próximas linhas
     for j in 1:numPRNs
         prn_data = split(lines[4 + j])
-        tipo = parse(Int, prn_data[1]) + 1 # Tipo começava em 0
+        tipo = parse(UInt8, prn_data[1]) + 1 # Tipo começava em 0
         custo = parse(Int, prn_data[2])
 
         listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpuID = 0)
@@ -62,16 +68,14 @@ function lerArquivo(filePath)
     println("Custo médio de PRNs: ", custoTotal / numPRNs)
     =#
 
-    contTipoGPU = fill(UInt8(0), numGPUs, numTipos)
-
     # Calcula a soma dos custos de todas as PRNs
-    custoTotal = sum(prn.custo for prn in listaPRN)
+    #custoTotal = sum(prn.custo for prn in listaPRN)
 
     # Calcula a soma das capacidades de todas as GPUs
-    capacidadeTotal = numGPUs * capacidadeGPU
+    #capacidadeTotal = numGPUs * capacidadeGPU
 
     # Calcula a razão entre a soma dos custos das PRNs e a soma das capacidades das GPUs
-    razaoCustoCapacidade = custoTotal / capacidadeTotal * 100
+    #razaoCustoCapacidade = custoTotal / capacidadeTotal * 100
 
     #println("Razão entre a soma dos custos das PRNs e a soma das capacidades das GPUs: ", razaoCustoCapacidade)
 
@@ -86,8 +90,3 @@ dog_4 = 80.22824858757062%
 dog_5 = 80.08
 dog_7 = 85%
 =#
-
-# Arquivo de entrada
-filePath = "dog/dog_7.txt"
-
-const global NUM_GPUs, CAPACIDADE_GPU, NUM_TIPOS, NUM_PRNs, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
