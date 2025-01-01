@@ -1,5 +1,3 @@
-include("structs.jl")
-
 function lerArquivo(filePath)
     local lines
 
@@ -81,12 +79,3 @@ function lerArquivo(filePath)
 
     return numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN, contTipoGPU
 end
-
-#=
-dog_1 = 85.08%
-dog_2 = 85%
-dog_3 = 80%
-dog_4 = 80.22824858757062%
-dog_5 = 80.08
-dog_7 = 85%
-=#

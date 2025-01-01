@@ -13,17 +13,17 @@ mutable struct GPU
     listaIDsPRN::Vector{Int}
 end
 
-function addPRN(gpu::GPU, prn::PRN)
+function addPRN(gpu::GPU, prn::PRN, contTipoGPU::Matrix{UInt8})
     temTipo = contTipoGPU[gpu.id, prn.tipo] > 0
 
     prn.gpuID = gpu.id
     push!(gpu.listaIDsPRN, prn.id)
     gpu.capacidadeRestante -= prn.custo
 
-    if !temTipo
+    if (!temTipo)
         gpu.numTipos += 1
-        contTipoGPU[gpu.id, prn.tipo] += 1
     end
+    contTipoGPU[gpu.id, prn.tipo] += 1
 end
 
 mutable struct Solucao
