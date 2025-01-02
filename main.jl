@@ -2,7 +2,7 @@ include("structs.jl")
 include("leitura.jl")
 include("vizinhanca.jl")
 
-const global MAX_STAGNANT_ITER = 100
+const global MAX_STAGNANT_ITER = 500
 
 
 # Solução Inicial
@@ -16,39 +16,27 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
         end
     end
 
-    #=
-    for prn in listaPRN
-        if prn.gpuID == 0
-            throw(ErrorException("Erro: PRN " * string(prn.id) * " não foi alocada na solução inicial."))
-        end
-    end
-
-    count = 0
-    for gpu in listaGPU
-        for prnID = gpu.listaIDsPRN
-            println("PRN ", prnID, " alocada na GPU ", gpu.id)
-            count += 1
-        end
-    end
-    println(" Count: ", count)
-    =#
-
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
 # Função para o Algoritmo de Metropolis
-function metropolis(s, T, melhorSol)
+function metropolis(s, T, melhorSol, vizinhanca)
     count = 0
 
     novaMelhorSol = deepcopy(melhorSol)
+
     tempoIter = 0.0
+    
     while (count < MAX_STAGNANT_ITER)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         tempoIn = time()
-        sLinha = vizinhancaTroca(s)
+
+        sLinha = vizinhanca(s)
+
         tempoViz= time() - tempoIn
+
         if(tempoViz > 0)
             tempoIter += tempoViz
         end
@@ -81,6 +69,28 @@ function metropolis(s, T, melhorSol)
     return novaMelhorSol, tempoIter
 end
 
+function deveTrocar(listaPRN)
+    global CAPACIDADE_GPUs
+    global NUM_PRNs
+    
+    #Custo médio de PRNs
+    custoTotal = 0
+    custoTotal = sum(prn.custo for prn in listaPRN)
+
+    custoMedioPRN = custoTotal / NUM_PRNs
+
+    mediaPRNporGPU = floor(CAPACIDADE_GPUs / custoMedioPRN)
+
+    capRestMedia = CAPACIDADE_GPUs - (mediaPRNporGPU * custoMedioPRN)
+    
+    espacoRestPercent = capRestMedia / CAPACIDADE_GPUs
+
+    if (espacoRestPercent < 0.4)
+        return true
+    else
+        return false
+    end
+end
 
 function simulatedAnnealing(s, T, alpha, temperatura_minima)
     melhorSol = s  # Inicializa melhor_sol com a solução inicial
@@ -89,9 +99,17 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima)
     tempoTotalViz = 0.0
     count = 0
 
+    if (deveTrocar(s.listaPRN))
+        println(" Vizinhança Troca")
+        vizinhanca = vizinhancaTroca
+    else
+        println(" Vizinhança Move")
+        vizinhanca = vizinhancaMove
+    end
+
     timeIn = time()
     while T > temperatura_minima
-        melhorSol, tempoIter = metropolis(s, T, melhorSol)
+        melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca)
         T = alpha * T
 
         count += 1
@@ -129,19 +147,19 @@ end
 
 function main()
     # Arquivo de entrada
-    filePath = "dog/dog_7.txt"
+    filePath = "dog/dog_3.txt"
 
     n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
 
-    global NUM_GPUs = n
-    global CAPACIDADE_GPU = V
-    global NUM_TIPOS = T
-    global NUM_PRNs = m
-
+    global NUM_GPUs = UInt16(n)
+    global CAPACIDADE_GPUs = UInt16(V)
+    global NUM_TIPOS = UInt8(T)
+    global NUM_PRNs = UInt16(m)
+    
     solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     
-    T = 2000
-    alpha = 0.98
+    T = 1000
+    alpha = 0.95
     temperaturaMin = 0.1
 
     println("Solução Inicial: ", solInicial.valorFO)
