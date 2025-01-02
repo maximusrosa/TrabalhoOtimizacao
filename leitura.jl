@@ -12,7 +12,7 @@ function lerArquivo(filePath)
     numGPUs = parse(Int, lines[1])
 
     # Linha 2: Quantidade de VRAM (V)
-    capacidadeGPU = parse(Int, lines[2])
+    capacidadeGPUs = parse(Int, lines[2])
 
     # Linha 3: Número de tipos diferentes (|T|)
     numTipos = parse(Int, lines[3])
@@ -20,7 +20,7 @@ function lerArquivo(filePath)
     # Linha 4: Número de PRNs (m)
     numPRNs = parse(Int, lines[4])
 
-    listaGPU = [GPU(i, 0, capacidadeGPU, Int[]) for i in 1:numGPUs]
+    listaGPU = [GPU(i, 0, capacidadeGPUs, Int[]) for i in 1:numGPUs]
     
     listaPRN = Vector{PRN}(undef, numPRNs)
 
@@ -77,5 +77,5 @@ function lerArquivo(filePath)
 
     #println("Razão entre a soma dos custos das PRNs e a soma das capacidades das GPUs: ", razaoCustoCapacidade)
 
-    return numGPUs, capacidadeGPU, numTipos, numPRNs, listaGPU, listaPRN, contTipoGPU
+    return numGPUs, capacidadeGPUs, numTipos, numPRNs, listaGPU, listaPRN, contTipoGPU
 end
