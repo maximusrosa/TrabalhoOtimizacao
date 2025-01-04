@@ -2,8 +2,8 @@ include("structs.jl")
 include("leitura.jl")
 include("vizinhanca.jl")
 
-const global MAX_STAGNANT_ITER = 500
-
+const global MAX_STAGNANT_ITER = 1000
+const global TEMP_INCIAL = 1000.0
 
 # Solução Inicial
 function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
@@ -21,8 +21,22 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
+# Função exponencial inversa
+function limiteTentPRNIsolada(tempAtual, limite_max, k)
+    #limiteTent = round(limite_max * exp(-k * (TEMP_INCIAL - tempAtual)))
+    #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
+    limiteTent = round(limite_max - tempAtual)
+    #limiteTent = 1000
+    if limiteTent < 50
+        return 0
+    else
+        return limiteTent
+    end
+    
+end
+
 # Função para o Algoritmo de Metropolis
-function metropolis(s, T, melhorSol, vizinhanca)
+function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
     count = 0
 
     novaMelhorSol = deepcopy(melhorSol)
@@ -33,7 +47,7 @@ function metropolis(s, T, melhorSol, vizinhanca)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         tempoIn = time()
 
-        sLinha = vizinhanca(s)
+        sLinha = vizinhanca(s, limiteHeuristPRN)
 
         tempoViz= time() - tempoIn
 
@@ -46,7 +60,7 @@ function metropolis(s, T, melhorSol, vizinhanca)
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
             novaMelhorSol = deepcopy(sLinha)
-            println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
+            #println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
             count = 0
         end
 
@@ -85,20 +99,25 @@ function deveTrocar(listaPRN)
     
     espacoRestPercent = capRestMedia / CAPACIDADE_GPUs
 
-    if (espacoRestPercent < 0.4)
+    println("Espaço restante médio: ", espacoRestPercent)
+
+    limite_pra_troca = 0.1
+
+    if (espacoRestPercent < limite_pra_troca)
         return true
     else
         return false
     end
 end
 
-function simulatedAnnealing(s, T, alpha, temperatura_minima)
+function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     melhorSol = s  # Inicializa melhor_sol com a solução inicial
 
     tempoTotal = 0.0
     tempoTotalViz = 0.0
     count = 0
 
+    #= 
     if (deveTrocar(s.listaPRN))
         println(" Vizinhança Troca")
         vizinhanca = vizinhancaTroca
@@ -106,14 +125,21 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima)
         println(" Vizinhança Move")
         vizinhanca = vizinhancaMove
     end
+    =#
 
     timeIn = time()
     while T > temperatura_minima
-        melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca)
+        limiteHeuristPRN = limiteTentPRNIsolada(T, LIMITE_TENT_PRN_ISOLADA, 0.1)
+        #println(" Temperatura: ", T)
+        #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
+        melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         T = alpha * T
-
         count += 1
         tempoTotalViz += tempoIter
+        # Verificação de tempo para parar após 30 segundos
+        if (time() - timeIn > 30)
+            break
+        end
     end
     tempoTotal = time() - timeIn
 
@@ -132,11 +158,12 @@ function testeAlg(solInicial, T, alpha, tempMin)
     countIter = 1
     tempoTotal = 0.0
     while (countIter <= MAX_ITER)
-        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin)
+        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin, vizinhancaMove)
         #println("Melhor solução (Iteração ", countIter, "): ", melhorSol.valorFO)
         mediaFO += melhorSol.valorFO
         countIter += 1
         tempoTotal += tempoIter
+        println(tempoTotal)
     end
     mediaFO = mediaFO / MAX_ITER
     tempoMedio = tempoTotal / MAX_ITER
@@ -147,7 +174,7 @@ end
 
 function main()
     # Arquivo de entrada
-    filePath = "dog/dog_3.txt"
+    filePath = "dog/dog_6.txt"
 
     n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
 
@@ -158,7 +185,7 @@ function main()
     
     solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     
-    T = 1000
+    T = TEMP_INCIAL
     alpha = 0.95
     temperaturaMin = 0.1
 
@@ -166,7 +193,17 @@ function main()
     
     #testeAlg(solInicial, T, alpha, temperaturaMin)
 
-    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin)
+    println(" Vizinhança Move")
+    vizinhanca = vizinhancaMove
+    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
+    println(" Vizinhança Troca")
+    vizinhanca = vizinhancaTroca
+    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
 end
+
+#=
+dog 2 = 23%, move: 116 seg, melhor solução: 137, troca: 50 s, melhor solução: 270
+melhor solução possível: 123
+=#
 
 main();
