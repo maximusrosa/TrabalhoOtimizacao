@@ -1,10 +1,10 @@
-const global LIMITE_TENT_PRN_ISOLADA = 100
-const global LIMITE_TENT_GPU_COM_TIPO = 100
-const global LIMITE_TENT_CAPACIDADE = 100
+const global LIMITE_TENT_PRN_ISOLADA = 200
+const global LIMITE_TENT_GPU_COM_TIPO = 200
+const global LIMITE_TENT_CAPACIDADE = 200
 
-const global LIMITE_TENT_TROCA = 100
+const global LIMITE_TENT_TROCA = 200
 
-const global LIMITE_TENT_MOV = 100
+const global LIMITE_TENT_MOV = 200
 
 const global NOT_FOUND = -1
 

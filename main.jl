@@ -2,7 +2,7 @@ include("structs.jl")
 include("leitura.jl")
 include("vizinhanca.jl")
 
-const global MAX_STAGNANT_ITER = 500
+const global MAX_STAGNANT_ITER = 1000
 
 
 # Solução Inicial
@@ -147,7 +147,7 @@ end
 
 function main()
     # Arquivo de entrada
-    filePath = "dog/dog_3.txt"
+    filePath = "dog/dog_7.txt"
 
     n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
 
