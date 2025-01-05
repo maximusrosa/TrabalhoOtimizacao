@@ -8,6 +8,9 @@ const global LIMITE_TENT_MOV = 1000
 
 const global NOT_FOUND = -1
 
+global countPrnMisses = 0
+global countGpuMisses = 0
+global countGpuCapMisses = 0
 
 function buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
     local prn
@@ -39,9 +42,11 @@ end
 
 
 function escolhePRN(listaPRN, contTipoGPU, limiteHeuristPRN)
+    global countPrnMisses
     prn_isolada = buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
 
     if prn_isolada == NOT_FOUND
+        countPrnMisses += 1
         return PRNAleatoria(listaPRN)
     else
         return prn_isolada
@@ -62,6 +67,8 @@ function buscaGPUComTipo(listaGPU, prn, contTipoGPU)
     local temEspaco
     local gpuOrigemID = prn.gpuID
 
+    global countGpuMisses
+
     tentativasGPU = 0
     while (tentativasGPU < LIMITE_TENT_GPU_COM_TIPO)
         gpuDestinoID = rand(setdiff(1:NUM_GPUs, [gpuOrigemID]))
@@ -80,6 +87,7 @@ function buscaGPUComTipo(listaGPU, prn, contTipoGPU)
         throw(ErrorException("GPU de destino é a mesma da origem"))
     end  
 
+    countGpuMisses += 1
     return NOT_FOUND
 end
 
@@ -88,6 +96,8 @@ function buscaGPUComCapacidade(listaGPU, prn)
     local gpuDestinoID
     local temEspaco
 
+    global countGpuCapMisses
+    
     tentativasGPU = 0
     while (tentativasGPU < LIMITE_TENT_CAPACIDADE)
         gpuDestinoID = rand(setdiff(1:NUM_GPUs, [prn.gpuID]))
@@ -100,6 +110,7 @@ function buscaGPUComCapacidade(listaGPU, prn)
         end
     end
 
+    countGpuCapMisses += 1
     return NOT_FOUND
 end
 
@@ -162,7 +173,7 @@ function vizinhancaMove(solucao, limiteHeuristPRN)
 
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
-    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
+    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO), countPrnMisses, countGpuMisses, countGpuCapMisses
 end
 
 function buscaPRNTroca(prn1, listaGPU, listaPRN, contTipoGPU)
@@ -291,7 +302,7 @@ function vizinhancaTroca(solucao, limiteHeuristPRN)
 
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
-    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
+    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO), countPrnMisses, countGpuMisses, countGpuCapMisses
 end
 
 

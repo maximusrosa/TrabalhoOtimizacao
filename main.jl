@@ -24,8 +24,8 @@ end
 # Função exponencial inversa
 function limiteTentPRNIsolada(tempAtual, limite_max, k)
     #limiteTent = round(limite_max * exp(-k * (TEMP_INCIAL - tempAtual)))
-    #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
-    limiteTent = round(limite_max - tempAtual)
+    limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
+    #limiteTent = round(limite_max - tempAtual)
     #limiteTent = 1000
     if limiteTent < 50
         return 0
@@ -37,17 +37,21 @@ end
 
 # Função para o Algoritmo de Metropolis
 function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
+    global countPrnMisses, countGpuCapMisses, countGpuMisses
+    
     count = 0
 
     novaMelhorSol = deepcopy(melhorSol)
 
     tempoIter = 0.0
-    
+
+    countPrnMisses, countGpuCapMisses, countGpuMisses = 0, 0, 0
+
     while (count < MAX_STAGNANT_ITER)
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         tempoIn = time()
 
-        sLinha = vizinhanca(s, limiteHeuristPRN)
+        sLinha, prnMisses, gpuMisses, gpuCapMisses = vizinhanca(s, limiteHeuristPRN)
 
         tempoViz= time() - tempoIn
 
@@ -60,8 +64,9 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
             novaMelhorSol = deepcopy(sLinha)
-            #println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
+            println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
             count = 0
+            countPrnMisses, countGpuCapMisses, countGpuMisses = 0, 0, 0
         end
 
         # Se a solução vizinha for melhor, ou seja, levar a um valor da função objetivo menor, atualiza s.
@@ -78,6 +83,8 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         end
     end
     tempoIter = tempoIter / MAX_STAGNANT_ITER
+
+    println(" Prn misses: ", countPrnMisses, " Gpu misses: ", countGpuMisses, " Gpu cap misses: ", countGpuCapMisses)
     
     # Retorna a solução final após certa quantia de iterações (MAX_STAGNANT_ITER) não causarem melhora na função objetivo.
     return novaMelhorSol, tempoIter
@@ -110,12 +117,12 @@ function deveTrocar(listaPRN)
     end
 end
 
-function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
+function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca, tempoMax)
     melhorSol = s  # Inicializa melhor_sol com a solução inicial
 
     tempoTotal = 0.0
     tempoTotalViz = 0.0
-    count = 0
+    countIter = 0
 
     #= 
     if (deveTrocar(s.listaPRN))
@@ -128,23 +135,30 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     =#
 
     timeIn = time()
+    k = 0.1  # Velocidade de decaimento
+    T0 = T  # Armazena a temperatura inicial
     while T > temperatura_minima
         limiteHeuristPRN = limiteTentPRNIsolada(T, LIMITE_TENT_PRN_ISOLADA, 0.1)
         #println(" Temperatura: ", T)
         #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
         melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
-        T = alpha * T
-        count += 1
+
+        countIter += 1
         tempoTotalViz += tempoIter
+
+        # Atualiza a temperatura usando uma função logarítmica
+        T = TEMP_INCIAL * exp(-k * sqrt(countIter))
+
         # Verificação de tempo para parar após 30 segundos
-        if (time() - timeIn > 30)
+        if (time() - timeIn > tempoMax)
             break
         end
+        println(" Temperatura: ", T, " Limite tentativas PRN isolada: ", limiteHeuristPRN)
     end
     tempoTotal = time() - timeIn
 
     println("----------------------------------------------")
-    println("Tempo médio de execução da função vizinhança: ", tempoTotalViz / count)
+    println("Tempo médio de execução da função vizinhança: ", tempoTotalViz / countIter)
     println("Tempo de execução total: ", tempoTotal)
     #println("Número de iterações do metropolis: ", count)
     println("Melhor solução encontrada: ", melhorSol.valorFO)
@@ -158,7 +172,7 @@ function testeAlg(solInicial, T, alpha, tempMin)
     countIter = 1
     tempoTotal = 0.0
     while (countIter <= MAX_ITER)
-        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin, vizinhancaMove)
+        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin, vizinhancaMove, 1800)
         #println("Melhor solução (Iteração ", countIter, "): ", melhorSol.valorFO)
         mediaFO += melhorSol.valorFO
         countIter += 1
@@ -174,7 +188,7 @@ end
 
 function main()
     # Arquivo de entrada
-    filePath = "dog/dog_6.txt"
+    filePath = "dog/dog_7.txt"
 
     n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
 
@@ -186,7 +200,8 @@ function main()
     solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     
     T = TEMP_INCIAL
-    alpha = 0.95
+    #alpha = 0.95
+    alpha = 0.01
     temperaturaMin = 0.1
 
     println("Solução Inicial: ", solInicial.valorFO)
@@ -195,10 +210,10 @@ function main()
 
     println(" Vizinhança Move")
     vizinhanca = vizinhancaMove
-    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
+    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca, 600)
     println(" Vizinhança Troca")
     vizinhanca = vizinhancaTroca
-    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
+    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca, 600)
 end
 
 #=

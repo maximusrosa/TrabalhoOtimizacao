@@ -75,8 +75,9 @@ function modelo_highs(num_gpus, vram_gpu, num_tipos, prns, tempoMax = 0.0)
 end
 
 function main()
-    nome_arquivo = "dog/dog_9.txt"
+    nome_arquivo = "dog/dog_3.txt"
     num_gpus, vram_gpu, num_tipos, prns = ler_arquivo_entrada(nome_arquivo)
+    println(" Começando a execução do modelo, para arquivo ", nome_arquivo, "...")
     modelo_highs(num_gpus, vram_gpu, num_tipos, prns, 1800.0)
 end
 
