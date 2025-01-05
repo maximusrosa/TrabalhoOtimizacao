@@ -47,7 +47,7 @@ end
 function main()
     # Define all dog instances
     dogFiles = [
-        "dog_2.txt"
+        "dog_7.txt"
     ]
 
     move = true
@@ -60,7 +60,7 @@ function main()
 
     # Process each instance
     for dog in dogFiles
-        println("========== Processing ", dog ," ==========")
+        println("============ Processing ", dog ," ============")
         
         # Read instance data
         n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)

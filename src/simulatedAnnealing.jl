@@ -2,10 +2,13 @@ include("structs.jl")
 include("leitura.jl")
 include("vizinhanca.jl")
 
-const global MAX_STAGNANT_ITER = 1000
-const global TEMP_INCIAL = 1000
+using Statistics
+using Random
 
-# Solução Inicial
+const global MAX_STAGNANT_ITER = 1000
+const global TEMP_INCIAL = 100
+
+
 function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     for prn in listaPRN
         for gpu in listaGPU
@@ -21,10 +24,11 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
-function limiteTentPRNIsolada(tempAtual, limite_max)
+
+function limiteTentPRNIsolada(tempAtual)
     #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
-    limiteTent = round(limite_max - tempAtual)
-    #limiteTent = 1000
+    limiteTent = round(LIMITE_TENT_PRN_ISOLADA - tempAtual)
+
     if limiteTent < 50
         return 0
     else
@@ -108,7 +112,62 @@ function deveTrocar(listaPRN)
     end
 end
 
+function solucaoValida(listaPRN, listaGPU, contTipoGPU)
+    global NUM_PRNs
+    valida = false
+    prns_alocadas = 0
+
+    while !valida
+        shuffle!(listaPRN)
+        shuffle!(listaGPU)
+
+        for prn in listaPRN
+            for gpu in listaGPU
+                if gpu.capacidadeRestante >= prn.custo
+                    addPRN(gpu, prn, contTipoGPU)
+                    prns_alocadas += 1
+                    break
+                end
+            end
+        end
+
+        if prns_alocadas == NUM_PRNs
+            valida = true
+            println("Solução válida")
+        end
+    end
+
+    valorFO = sum(gpu.numTipos for gpu in listaGPU)
+
+    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
+end
+
+# A temperatura inicial deve ser o desvio padrão no valor da função objetivo de 200 soluções geradas aleatoriamente.
+function temperaturaInicial(listaPRN, listaGPU, contTipoGPU)
+    global TEMP_INCIAL
+
+    print("Calculando temperatura inicial...")
+
+    # Gera 200 soluções iniciais aleatórias
+    solucoes = []
+    for i in 1:200
+        s = solucaoValida(listaPRN, listaGPU, contTipoGPU)
+        push!(solucoes, s)
+        print(i)
+    end
+
+    print("Calculando desvio padrão...")
+
+    # Calcula o desvio padrão das funções objetivos dessas soluções
+    T = std([s.valorFO for s in solucoes])
+
+    return T
+end
+
+
 function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
+    T = temperaturaInicial(s.listaPRN, s.listaGPU, s.contTipoGPU)
+
     melhorSol = s  # Inicializa melhor_sol com a solução inicial
 
     tempoTotal = 0.0
@@ -127,7 +186,7 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
 
     timeIn = time()
     while T > temperatura_minima
-        limiteHeuristPRN = limiteTentPRNIsolada(T, LIMITE_TENT_PRN_ISOLADA)
+        limiteHeuristPRN = limiteTentPRNIsolada(T)
 
         #println(" Temperatura: ", T)
         #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
