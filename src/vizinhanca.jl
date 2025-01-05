@@ -1,6 +1,6 @@
 const global LIMITE_TENT_PRN_ISOLADA = 1000
 const global LIMITE_TENT_GPU_COM_TIPO = 1000
-const global LIMITE_TENT_CAPACIDADE = 1000
+const global LIMITE_TENT_CAPACIDADE = 2000
 
 const global LIMITE_TENT_TROCA = 1000
 
@@ -14,9 +14,9 @@ function buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
     local tipoPRN
     local gpuOrigemID
 
-    tentativasPRN = 0
+    tentativas = 0
     
-    while (tentativasPRN < limiteHeuristPRN)
+    while (tentativas < limiteHeuristPRN)
         prn = PRNAleatoria(listaPRN)
         tipoPRN = prn.tipo
         gpuOrigemID = prn.gpuID
@@ -25,7 +25,7 @@ function buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
         if (contTipoGPU[gpuOrigemID, tipoPRN] == 1)
             return prn
         end
-        tentativasPRN += 1
+        tentativas += 1
     end
 
     return NOT_FOUND
@@ -39,20 +39,13 @@ end
 
 
 function escolhePRN(listaPRN, contTipoGPU, limiteHeuristPRN)
-    prn_isolada = buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
+    prnIsolada = buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
 
-    if prn_isolada == NOT_FOUND
+    if prnIsolada == NOT_FOUND
         return PRNAleatoria(listaPRN)
     else
-        return prn_isolada
+        return prnIsolada
     end
-end
-
-
-function GPUAleatoria(listaGPU)
-    global NUM_GPUs
-
-    return listaGPU[rand(1:NUM_GPUs)].id
 end
 
 function buscaGPUComTipo(listaGPU, prn, contTipoGPU)
@@ -62,8 +55,8 @@ function buscaGPUComTipo(listaGPU, prn, contTipoGPU)
     local temEspaco
     local gpuOrigemID = prn.gpuID
 
-    tentativasGPU = 0
-    while (tentativasGPU < LIMITE_TENT_GPU_COM_TIPO)
+    tentativas = 0
+    while (tentativas < LIMITE_TENT_GPU_COM_TIPO)
         gpuDestinoID = rand(setdiff(1:NUM_GPUs, [gpuOrigemID]))
         
         temTipo = contTipoGPU[gpuDestinoID, prn.tipo] > 0
@@ -73,7 +66,7 @@ function buscaGPUComTipo(listaGPU, prn, contTipoGPU)
             return gpuDestinoID
         end
         
-        tentativasGPU += 1
+        tentativas += 1
     end
 
     if (gpuDestinoID == prn.gpuID)
@@ -88,15 +81,15 @@ function buscaGPUComCapacidade(listaGPU, prn)
     local gpuDestinoID
     local temEspaco
 
-    tentativasGPU = 0
-    while (tentativasGPU < LIMITE_TENT_CAPACIDADE)
+    tentativas = 0
+    while (tentativas < LIMITE_TENT_CAPACIDADE)
         gpuDestinoID = rand(setdiff(1:NUM_GPUs, [prn.gpuID]))
         temEspaco = listaGPU[gpuDestinoID].capacidadeRestante >= prn.custo
 
         if (temEspaco)
             return gpuDestinoID
         else
-            tentativasGPU += 1
+            tentativas += 1
         end
     end
 
@@ -168,13 +161,13 @@ end
 function buscaPRNTroca(prn1, listaGPU, listaPRN, contTipoGPU)
     global NUM_GPUs
     local prn2
-    local tentativasTroca = 0
+    local tentativas = 0
 
-    while (tentativasTroca < LIMITE_TENT_TROCA)
+    while (tentativas < LIMITE_TENT_TROCA)
         gpuDestinoID = rand(setdiff(1:NUM_GPUs, [prn1.gpuID]))
         #gpuDestinoID = escolheGPUDestino(prn1, listaGPU, contTipoGPU)
-        for prn2Id in listaGPU[gpuDestinoID].listaIDsPRN
-            prn2 = listaPRN[prn2Id]
+        for prn2ID in listaGPU[gpuDestinoID].listaIDsPRN
+            prn2 = listaPRN[prn2ID]
             
             if (prn2.tipo != prn1.tipo)
                 espacoGPUOrigem = listaGPU[prn1.gpuID].capacidadeRestante + prn1.custo >= prn2.custo
@@ -186,7 +179,7 @@ function buscaPRNTroca(prn1, listaGPU, listaPRN, contTipoGPU)
             end
         end
 
-        tentativasTroca += 1
+        tentativas += 1
     end
 
     return NOT_FOUND
@@ -217,12 +210,14 @@ function movePRN(prn, gpuDestino, listaGPU, contTipoGPU)
 
     # Atualiza numero de tipos da GPU origem
     prnIsoladaOrigem = contTipoGPU[gpuOrigemID, tipoPRN] == 1
+
     if prnIsoladaOrigem
         listaGPU[gpuOrigemID].numTipos -= 1
     end
 
     # Atualiza numero de tipos da GPU destino
     prnIsoladaDestino = contTipoGPU[gpuDestinoID, tipoPRN] == 0
+
     if prnIsoladaDestino
         listaGPU[gpuDestinoID].numTipos += 1
     end
@@ -258,7 +253,7 @@ function vizinhancaTroca(solucao, limiteHeuristPRN)
     local listaGPU = deepcopy(solucao.listaGPU)
     local contTipoGPU = deepcopy(solucao.contTipoGPU)
 
-    tentativasMov = 0
+    tentativas = 0
     while true
         # Tentativa de inserção de PRN em GPU de destino
         prn1 = escolhePRN(listaPRN, contTipoGPU, limiteHeuristPRN)
@@ -279,10 +274,10 @@ function vizinhancaTroca(solucao, limiteHeuristPRN)
             continue
         end
 
-        tentativasMov += 1
+        tentativas += 1
         
         # Não conseguiu encontrar uma troca válida, dentro do limite de tentativas.
-        if (tentativasMov > LIMITE_TENT_MOV)
+        if (tentativas > LIMITE_TENT_TROCA)
             println("Não foi possível trocar a PRN ", prn1.id)
             return solucao
         end
@@ -292,19 +287,4 @@ function vizinhancaTroca(solucao, limiteHeuristPRN)
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
-end
-
-
-function print_solucao(solucao)
-    println("PRNs:")
-    for prn in solucao.listaPRN
-        println("PRN ID: $(prn.id), Tipo: $(prn.tipo), GPU ID: $(prn.gpuID), Custo: $(prn.custo)")
-    end
-    println("\nGPUs:")
-    for gpu in solucao.listaGPU
-        println("GPU ID: $(gpu.id), Num Tipos: $(gpu.numTipos), Capacidade: $(gpu.capacidadeRestante)")
-    end
-    println("\nMatriz contTipoGPU:")
-    println(solucao.contTipoGPU)
-    println("\nValor da Função Objetivo: $(solucao.valorFO)")
 end

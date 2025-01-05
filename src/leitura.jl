@@ -9,33 +9,33 @@ function lerArquivo(filePath)
     end
 
     # Linha 1: Número de GPUs (n)
-    numGPUs = parse(Int, lines[1])
+    numGPUs = parse(UInt16, lines[1])
 
     # Linha 2: Quantidade de VRAM (V)
-    capacidadeGPUs = parse(Int, lines[2])
+    capacidadeGPUs = parse(UInt16, lines[2])
 
     # Linha 3: Número de tipos diferentes (|T|)
-    numTipos = parse(Int, lines[3])
+    numTipos = parse(UInt8, lines[3])
 
     # Linha 4: Número de PRNs (m)
-    numPRNs = parse(Int, lines[4])
+    numPRNs = parse(UInt16, lines[4])
 
-    listaGPU = [GPU(i, 0, capacidadeGPUs, Int[]) for i in 1:numGPUs]
-    
+    listaGPU = [GPU(UInt16(i), UInt8(0), capacidadeGPUs, UInt16[]) for i in 1:numGPUs]
+
     listaPRN = Vector{PRN}(undef, numPRNs)
 
     # Processa as PRNs nas próximas linhas
     for j in 1:numPRNs
         prn_data = split(lines[4 + j])
-        tipo = parse(UInt8, prn_data[1]) + 1 # Tipo começava em 0
-        custo = parse(Int, prn_data[2])
+        tipo = parse(UInt8, prn_data[1]) + UInt8(1)  # Tipo começava em 0
+        custo = parse(UInt8, prn_data[2])
 
-        listaPRN[j] = PRN(j, 0, custo, tipo) # GPU ainda não alocada (gpuID = 0)
+        listaPRN[j] = PRN(UInt16(j), UInt16(0), custo, tipo)  # GPU ainda não alocada (gpuID = 0)
     end
 
     contTipoGPU = fill(UInt8(0), numGPUs, numTipos)
 
-    #=
+#=
     # Solução mínima, melhor solução que pode ser factível.
     somaTipos = fill(0, numTipos)
     quantTipos = fill(0, numTipos)
@@ -64,7 +64,7 @@ function lerArquivo(filePath)
         custoTotal += prn.custo
     end
     println("Custo médio de PRNs: ", custoTotal / numPRNs)
-    =#
+=#
 
     # Calcula a soma dos custos de todas as PRNs
     #custoTotal = sum(prn.custo for prn in listaPRN)

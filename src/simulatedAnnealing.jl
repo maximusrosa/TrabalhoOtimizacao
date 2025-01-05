@@ -3,7 +3,7 @@ include("leitura.jl")
 include("vizinhanca.jl")
 
 const global MAX_STAGNANT_ITER = 1000
-const global TEMP_INCIAL = 1000.0
+const global TEMP_INCIAL = 1000
 
 # Solução Inicial
 function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
@@ -21,9 +21,7 @@ function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
-# Função exponencial inversa
-function limiteTentPRNIsolada(tempAtual, limite_max, k)
-    #limiteTent = round(limite_max * exp(-k * (TEMP_INCIAL - tempAtual)))
+function limiteTentPRNIsolada(tempAtual, limite_max)
     #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
     limiteTent = round(limite_max - tempAtual)
     #limiteTent = 1000
@@ -129,13 +127,17 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
 
     timeIn = time()
     while T > temperatura_minima
-        limiteHeuristPRN = limiteTentPRNIsolada(T, LIMITE_TENT_PRN_ISOLADA, 0.1)
+        limiteHeuristPRN = limiteTentPRNIsolada(T, LIMITE_TENT_PRN_ISOLADA)
+
         #println(" Temperatura: ", T)
         #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
+        
         melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         T = alpha * T
+
         count += 1
         tempoTotalViz += tempoIter
+
         # Verificação de tempo para parar após 30 segundos
         if (time() - timeIn > 30)
             break
@@ -143,67 +145,7 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     end
     tempoTotal = time() - timeIn
 
-    println("----------------------------------------------")
-    println("Tempo médio de execução da função vizinhança: ", tempoTotalViz / count)
-    println("Tempo de execução total: ", tempoTotal)
-    #println("Número de iterações do metropolis: ", count)
-    println("Melhor solução encontrada: ", melhorSol.valorFO)
+    println("Tempo médio exec. vizinhança: ", tempoTotalViz / count)
+
     return melhorSol, tempoTotal  # Retorna a melhor solução encontrada, quando T chegar a uma temperatura minima.
 end
-
-function testeAlg(solInicial, T, alpha, tempMin)
-    MAX_ITER = 10
-
-    mediaFO = 0
-    countIter = 1
-    tempoTotal = 0.0
-    while (countIter <= MAX_ITER)
-        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin, vizinhancaMove)
-        #println("Melhor solução (Iteração ", countIter, "): ", melhorSol.valorFO)
-        mediaFO += melhorSol.valorFO
-        countIter += 1
-        tempoTotal += tempoIter
-        println(tempoTotal)
-    end
-    mediaFO = mediaFO / MAX_ITER
-    tempoMedio = tempoTotal / MAX_ITER
-    println("----------------------------------------------")
-    println("Média da função objetivo, depois de ", MAX_ITER, " iterações: ", mediaFO)
-    println("Tempo médio de execução: ", tempoMedio)
-end
-
-function main()
-    # Arquivo de entrada
-    filePath = "dog/dog_6.txt"
-
-    n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo(filePath)
-
-    global NUM_GPUs = UInt16(n)
-    global CAPACIDADE_GPUs = UInt16(V)
-    global NUM_TIPOS = UInt8(T)
-    global NUM_PRNs = UInt16(m)
-    
-    solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
-    
-    T = TEMP_INCIAL
-    alpha = 0.95
-    temperaturaMin = 0.1
-
-    println("Solução Inicial: ", solInicial.valorFO)
-    
-    #testeAlg(solInicial, T, alpha, temperaturaMin)
-
-    println(" Vizinhança Move")
-    vizinhanca = vizinhancaMove
-    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
-    println(" Vizinhança Troca")
-    vizinhanca = vizinhancaTroca
-    melhorSol, tempoExec = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
-end
-
-#=
-dog 2 = 23%, move: 116 seg, melhor solução: 137, troca: 50 s, melhor solução: 270
-melhor solução possível: 123
-=#
-
-main();
