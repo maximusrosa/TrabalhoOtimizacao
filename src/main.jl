@@ -54,7 +54,6 @@ function main()
     troca = true
 
     # Parameters for simulated annealing
-    temp = TEMP_INCIAL
     alpha = 0.95
     temperaturaMin = 0.1
 
@@ -69,10 +68,13 @@ function main()
         global NUM_TIPOS = T
         global NUM_PRNs = m
         
+        # Escolhe temperatura inicial com base no desvio padrão da função objetivo na solução inicial.
+        temp = temperaturaInicial(listaPRN, listaGPU)
+
         # Generate initial solution
         solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
         println("Solução Inicial: ", solInicial.valorFO)
-
+        
         if move
             # Run with Move neighborhood
             println("\nVizinhança Move")
