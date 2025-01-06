@@ -27,48 +27,65 @@ end
 function main()
     # Define all dog instances
     dogFiles = [
-        "dog_7.txt"
+        "dog_1.txt",
+        "dog_2.txt",
+        "dog_3.txt",
+        "dog_4.txt",
+        "dog_5.txt",
+        "dog_6.txt",
+        "dog_7.txt",
+        "dog_8.txt",
+        "dog_9.txt",
+        "dog_10.txt"
     ]
 
     move = true
     troca = true
 
     # Parameters for simulated annealing
+    T = TEMP_INCIAL
     alpha = 0.95
     temperaturaMin = 0.1
 
     # Process each instance
     for dog in dogFiles
         println("============ Processing ", dog ," ============")
-        
-        # Read instance data
-        n, V, T, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)
+
+        global n, v, t, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)
         global NUM_GPUs = n
-        global CAPACIDADE_GPUs = V
-        global NUM_TIPOS = T
+        global CAPACIDADE_GPUs = v
+        global NUM_TIPOS = t
         global NUM_PRNs = m
 
-        # Generate initial solution
+
         solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
         println("Solução Inicial: ", solInicial.valorFO)
-
-        # Escolhe temperatura inicial com base no desvio padrão da função objetivo na solução inicial.
-        temp = temperaturaInicial(listaPRN, listaGPU)
-        
-        if move
-            # Run with Move neighborhood
-            println("\nVizinhança Move")
-            vizinhanca = vizinhancaMove
-            melhorSolMove, tempoExecMove = simulatedAnnealing(solInicial, temp, alpha, temperaturaMin, vizinhanca)
-            println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
-        end
 
         if troca
             # Run with Swap neighborhood
             println("\nVizinhança Troca")
             vizinhanca = vizinhancaTroca
-            melhorSolTroca, tempoExecTroca = simulatedAnnealing(solInicial, temp, alpha, temperaturaMin, vizinhanca)
+            melhorSolTroca, tempoExecTroca = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
             println("Troca: FO = ", melhorSolTroca.valorFO, "\tTotal Time = ", tempoExecTroca)
+        end
+
+        
+        global n, v, t, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)
+        global NUM_GPUs = n
+        global CAPACIDADE_GPUs = v
+        global NUM_TIPOS = t
+        global NUM_PRNs = m
+
+
+        solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
+        println("Solução Inicial: ", solInicial.valorFO)
+        
+        if move
+            # Run with Move neighborhood
+            println("\nVizinhança Move")
+            vizinhanca = vizinhancaMove
+            melhorSolMove, tempoExecMove = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
+            println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
         end
 
         println("==============================================")
