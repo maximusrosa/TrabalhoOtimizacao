@@ -23,26 +23,6 @@ function testeAlg(solInicial, T, alpha, tempMin)
     println("Tempo médio de execução: ", tempoMedio)
 end
 
-function testeAlg(solInicial, T, alpha, tempMin)
-    MAX_ITER = 10
-
-    mediaFO = 0
-    countIter = 1
-    tempoTotal = 0.0
-    while (countIter <= MAX_ITER)
-        melhorSol, tempoIter = simulatedAnnealing(solInicial, T, alpha, tempMin, vizinhancaMove)
-        #println("Melhor solução (Iteração ", countIter, "): ", melhorSol.valorFO)
-        mediaFO += melhorSol.valorFO
-        countIter += 1
-        tempoTotal += tempoIter
-        println(tempoTotal)
-    end
-    mediaFO = mediaFO / MAX_ITER
-    tempoMedio = tempoTotal / MAX_ITER
-    println("----------------------------------------------")
-    println("Média da função objetivo, depois de ", MAX_ITER, " iterações: ", mediaFO)
-    println("Tempo médio de execução: ", tempoMedio)
-end
 
 function main()
     # Define all dog instances
@@ -67,13 +47,13 @@ function main()
         global CAPACIDADE_GPUs = V
         global NUM_TIPOS = T
         global NUM_PRNs = m
-        
-        # Escolhe temperatura inicial com base no desvio padrão da função objetivo na solução inicial.
-        temp = temperaturaInicial(listaPRN, listaGPU)
 
         # Generate initial solution
         solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
         println("Solução Inicial: ", solInicial.valorFO)
+
+        # Escolhe temperatura inicial com base no desvio padrão da função objetivo na solução inicial.
+        temp = temperaturaInicial(listaPRN, listaGPU)
         
         if move
             # Run with Move neighborhood

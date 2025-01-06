@@ -10,6 +10,18 @@ const global NOT_FOUND = -1
 
 # ==================== MOVE ==================== #
 
+function limiteTentPRNIsolada(tempAtual)
+    #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
+    limiteTent = round(LIMITE_TENT_PRN_ISOLADA - tempAtual)
+
+    if limiteTent < 50
+        return 0
+    else
+        return limiteTent
+    end
+    
+end
+
 function buscaPRNIsolada(listaPRN, contTipoGPU, limiteHeuristPRN)
     local prn
     local tipoPRN
