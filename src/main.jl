@@ -1,5 +1,6 @@
 include("utils.jl")
 include("simulatedAnnealing.jl")
+include("salvaSol.jl")
 
 using ArgParse
 
@@ -32,7 +33,7 @@ function main()
 
     alpha = argv["alpha"]
     temperaturaMin = argv["temperaturaMin"]
-    output_file = argv["output"]
+    #output_file = argv["output"]
     input_file = argv["input"]
 
     input = (input_file == "") ? ["dog_1.txt", "dog_2.txt", "dog_3.txt", "dog_4.txt", "dog_5.txt", 
@@ -58,7 +59,7 @@ function main()
         melhorSolMove, tempoExecMove = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
         testaSolucao(melhorSolMove)
         println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
-
+        salvaSol(melhorSolMove, "melhorSol_" * dog * ".txt")
 #=
         if output_file != ""
             open(output_file, "w") do f

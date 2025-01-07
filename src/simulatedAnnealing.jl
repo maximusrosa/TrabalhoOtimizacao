@@ -7,7 +7,7 @@ using Random
 
 const global TEMPERATURE_LENGTH = 1000
 const global TEMP_INCIAL = 100
-const global TIMEOUT_LIMIT = 15 * 60
+const global TIMEOUT_LIMIT = 30
 
 function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     # Remove a GPU da lista se já estiver presente
