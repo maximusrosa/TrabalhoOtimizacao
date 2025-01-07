@@ -1,41 +1,68 @@
 include("utils.jl")
 include("simulatedAnnealing.jl")
 
+using ArgParse
+
 function main()
-    easyOnes = ["dog_1.txt", "dog_2.txt", "dog_7.txt", "dog_8.txt", "dog_9.txt"]
-    hardOnes = ["dog_3.txt", "dog_4.txt", "dog_5.txt", "dog_6.txt", "dog_10.txt"]
+    args = ArgParseSettings()
+    @add_arg_table s begin
+        "--alpha"
+        help = "Cooling rate"
+        arg_type = Float64
+        default = 0.95
 
-    dogs = vcat(easyOnes, hardOnes)
+        "--temperaturaMin"
+        help = "Minimum temperature"
+        arg_type = Float64
+        default = 0.1
 
-    # Parameters for simulated annealing
-    alpha = 0.95
-    temperaturaMin = 0.1
+        "--output"
+        help = "Output file for the best solution"
+        arg_type = String
+        default = ""
 
-    # Process each instance
-    for dog in dogs
+        "--input"
+        help = "Input file for a specific dog"
+        arg_type = String
+        default = ""
+    end
+
+    argv = parse_args(args)
+
+    alpha = argv["alpha"]
+    temperaturaMin = argv["temperaturaMin"]
+    output_file = argv["output"]
+    input_file = argv["input"]
+
+    input = (input_file == "") ? ["dog_1.txt", "dog_2.txt", "dog_3.txt", "dog_4.txt", "dog_5.txt", 
+                               "dog_6.txt", "dog_7.txt", "dog_8.txt", "dog_9.txt", "dog_10.txt"] : [input_file]
+
+    for dog in input
         println("============ Processing ", dog ," ============")
         
-        # Read instance data
         n, V, t, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)
         global NUM_GPUs = n
         global CAPACIDADE_GPUs = V
         global NUM_TIPOS = t
         global NUM_PRNs = m
 
-        # Generate initial solution
-        solInicial = solucaoInicialGulosa(listaPRN, listaGPU, contTipoGPU)
+        solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
         testaSolucao(solInicial)
         println("Solução Inicial: ", solInicial.valorFO)
 
-        # Escolhe temperatura inicial com base no desvio padrão da função objetivo na solução inicial.
-        T = temperaturaInicial(listaPRN, listaGPU)
+        T = 1000
         
-        # Run with Move neighborhood
         println("\nVizinhança Move")
         vizinhanca = vizinhancaMove
         melhorSolMove, tempoExecMove = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
         testaSolucao(melhorSolMove)
         println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
+
+        if output_file != ""
+            open(output_file, "w") do f
+                write(f, "Best Solution: ", melhorSolMove.valorFO, "\n")
+            end
+        end
 
         println("==============================================")
     end

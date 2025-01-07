@@ -1,16 +1,13 @@
 const global LIMITE_TENT_PRN_ISOLADA = 1000
 const global LIMITE_TENT_GPU_COM_TIPO = 1000
 const global LIMITE_TENT_CAPACIDADE = 1000
-
 const global LIMITE_TENT_MOV = 1000
 
 const global NOT_FOUND = -1
 
 
-function limiteTentPRNIsolada(temperaturaInicial, tempAtual)
-    #limiteTent = round(limite_max * (tempAtual / TEMP_INCIAL))
-    limiteTent = round(LIMITE_TENT_PRN_ISOLADA * tempAtual / temperaturaInicial)
-    println(" Temperatura Inicial: ", temperaturaInicial, " Temperatura Atual: ", tempAtual, " Limite de Tentativas: ", limiteTent)
+function limiteTentPRNIsolada(temperaturaInicial, temperaturaAtual)
+    limiteTent = round(LIMITE_TENT_PRN_ISOLADA * temperaturaAtual / temperaturaInicial)
 
     if limiteTent < 50
         return 0
@@ -137,7 +134,7 @@ function vizinhancaMove(solucao, limiteHeuristPRN)
 
         # Não achou espaço para a PRN em nenhuma GPU
         if (tentativasMov > LIMITE_TENT_MOV)
-            println("Não foi possível encontrar uma GPU de destino para a PRN ", prn.id)
+            #println("Não foi possível encontrar uma GPU de destino para a PRN ", prn.id)
             return solucao
         end
     end

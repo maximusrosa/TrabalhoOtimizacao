@@ -5,10 +5,9 @@ include("vizinhanca.jl")
 using Statistics
 using Random
 
-const global MAX_STAGNANT_ITER = 1000
+const global TEMPERATURE_LENGTH = 1000
 const global TEMP_INCIAL = 100
-const global LIMITE_SOL_GULOSA = Inf
-const global TIMEOUT_LIMIT = 30
+const global TIMEOUT_LIMIT = 15 * 60
 
 function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     # Remove a GPU da lista se já estiver presente
@@ -28,66 +27,6 @@ function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     # Insere a GPU na posição correta
     insert!(gpusOrdenadasCap, idGPU, (gpu.id, gpu.capacidadeRestante))
 end
-
-function solucaoInicialMinTipos(listaPRN, listaGPU, contTipoGPU)
-    # Itera sobre todos os PRNs
-    for prn in listaPRN
-        melhorGPU = nothing
-        menorImpacto = Inf
-
-        for gpu in listaGPU
-            if gpu.capacidadeRestante >= prn.custo
-                # Calcula impacto no número de tipos
-                tipoAtual = contTipoGPU[gpu.id, prn.tipo] > 0
-                impactoTipos = tipoAtual ? 0 : 1
-
-                # Critério de escolha: menor impacto no número de tipos
-                if impactoTipos < menorImpacto
-                    menorImpacto = impactoTipos
-                    melhorGPU = gpu
-                end
-            end
-        end
-
-        # Aloca o PRN na melhor GPU encontrada
-        if melhorGPU != nothing
-            addPRN(melhorGPU, prn, contTipoGPU)
-        else
-            println("Erro: Não foi possível alocar o PRN $(prn.id).")
-        end
-    end
-
-    # Calcula valor da função objetivo como soma do número de tipos diferentes por GPU
-    valorFO = sum(gpu.numTipos for gpu in listaGPU)
-
-    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
-end
-
-
-function solucaoInicialHeuristica(listaPRN, listaGPU, contTipoGPU)
-    for prn in listaPRN
-        gpuEscolhida = nothing
-        melhorCusto = Inf  # Minimiza o custo restante
-
-        for gpu in listaGPU
-            if gpu.capacidadeRestante >= prn.custo
-                custoRestante = gpu.capacidadeRestante - prn.custo
-                if custoRestante < melhorCusto
-                    gpuEscolhida = gpu
-                    melhorCusto = custoRestante
-                end
-            end
-        end
-
-        if gpuEscolhida !== nothing
-            addPRN(gpuEscolhida, prn, contTipoGPU)
-        end
-    end
-
-    valorFO = sum(gpu.numTipos for gpu in listaGPU)
-    return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
-end
-
 
 function solucaoInicialGulosa(listaPRN, listaGPU, contTipoGPU)
     local listaPRNAux
@@ -202,8 +141,6 @@ function solucaoValida(listaPRNInicial, listaGPUInicial)
         if prns_alocadas == NUM_PRNs
             valida = true
         else
-            #println("Solução inválida, gerando nova...")
-            # Reset the allocation count and GPU capacities if not valid
             prns_alocadas = 0
             for gpu in listaGPU
                 gpu.listaIDsPRN = []
@@ -216,36 +153,18 @@ function solucaoValida(listaPRNInicial, listaGPUInicial)
         end
     end
     
-    # Função para printar a alocação obtida.
-    #=
-    for id in 1:NUM_GPUs
-        gpu = listaGPU[id]
-        println("==================================================================================")
-        println("GPU ID: ", gpu.id, " Capacidade Restante: ", gpu.capacidadeRestante, " Num Tipos: ", gpu.numTipos)
-        for prnID in gpu.listaIDsPRN
-            prn = listaPRN[prnID]
-            println("PRN ID: ", prn.id, " GPU ID: ", prn.gpuID, " Custo: ", prn.custo, " Tipo: ", prn.tipo)
-        end
-    end
-    =#
-    
+
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)
 end
 
 function temperaturaInicial(listaPRN, listaGPU)
-
-    println("Calculando temperatura inicial...")
-
     # Gera 200 soluções iniciais aleatórias
     solucoes = []
     for i in 1:200
         s = solucaoValida(listaPRN, listaGPU)
         push!(solucoes, s)
-        #println("i: ", i, " FO: ", s.valorFO)
     end
-
-    #println("Calculando desvio padrão...")
 
     # Calcula o desvio padrão das funções objetivos dessas soluções
     T = std([s.valorFO for s in solucoes])
@@ -260,7 +179,7 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
 
     tempoIter = 0.0
     
-    for i in 1:MAX_STAGNANT_ITER
+    for i in 1:TEMPERATURE_LENGTH
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         tempoIn = time()
 
@@ -271,8 +190,6 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         if(tempoViz > 0)
             tempoIter += tempoViz
         end
-        
-        #println("Valor função objetivo obtido na função vizinhança: ", sLinha.valorFO)
         
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
@@ -288,15 +205,17 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
             # Caso contrário, atualiza com uma certa probabilidade
             delta = sLinha.valorFO - s.valorFO
             probabilidade = exp(-delta / T)
+
             if rand() < probabilidade
                 s = deepcopy(sLinha)
             end
+
             count += 1
         end
     end
-    tempoIter = tempoIter / MAX_STAGNANT_ITER
+    tempoIter = tempoIter / TEMPERATURE_LENGTH
     
-    # Retorna a solução final após certa quantia de iterações (MAX_STAGNANT_ITER) não causarem melhora na função objetivo.
+    # Retorna a solução final após certa quantia de iterações (TEMPERATURE_LENGTH)
     return novaMelhorSol, s, tempoIter
 end
 
@@ -311,9 +230,6 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     timeIn = time()
     while T > temperatura_minima
         limiteHeuristPRN = limiteTentPRNIsolada(temperaturaInicial, T)
-
-        #println(" Temperatura: ", T)
-        #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
         
         melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         T = alpha * T

@@ -35,47 +35,5 @@ function lerArquivo(filePath)
 
     contTipoGPU = fill(UInt8(0), numGPUs, numTipos)
 
-#=
-    # Solução mínima, melhor solução que pode ser factível.
-    somaTipos = fill(0, numTipos)
-    quantTipos = fill(0, numTipos)
-    for prn in listaPRN
-        somaTipos[prn.tipo] += prn.custo
-        quantTipos[prn.tipo] += 1
-    end
-    
-    count = 1
-    quantTotalGPUs = 0
-    for soma in somaTipos
-        quantGPUs = ceil(soma / 100)
-        println("Tipo ", count, ": ", quantGPUs) # 100 é a capacidade da GPU
-        count += 1
-        quantTotalGPUs += quantGPUs
-    end
-    println("Solução mínima: ", quantTotalGPUs)
-
-    
-    #Distribuição de tipos
-    println("Tipo: $(tipo), Quantidade: $(quantTipos)")
-
-    #Custo médio de PRNs
-    custoTotal = 0
-    for prn in listaPRN
-        custoTotal += prn.custo
-    end
-    println("Custo médio de PRNs: ", custoTotal / numPRNs)
-=#
-
-    # Calcula a soma dos custos de todas as PRNs
-    #custoTotal = sum(prn.custo for prn in listaPRN)
-
-    # Calcula a soma das capacidades de todas as GPUs
-    #capacidadeTotal = numGPUs * capacidadeGPU
-
-    # Calcula a razão entre a soma dos custos das PRNs e a soma das capacidades das GPUs
-    #razaoCustoCapacidade = custoTotal / capacidadeTotal * 100
-
-    #println("Razão entre a soma dos custos das PRNs e a soma das capacidades das GPUs: ", razaoCustoCapacidade)
-
     return numGPUs, capacidadeGPUs, numTipos, numPRNs, listaGPU, listaPRN, contTipoGPU
 end
