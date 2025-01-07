@@ -306,10 +306,11 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     tempoTotal = 0.0
     tempoTotalViz = 0.0
     count = 0
+    temperaturaInicial = T
 
     timeIn = time()
     while T > temperatura_minima
-        limiteHeuristPRN = limiteTentPRNIsolada(T)
+        limiteHeuristPRN = limiteTentPRNIsolada(temperaturaInicial, T)
 
         #println(" Temperatura: ", T)
         #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
