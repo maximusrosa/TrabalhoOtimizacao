@@ -5,7 +5,18 @@ using ArgParse
 
 function main()
     args = ArgParseSettings()
-    @add_arg_table s begin
+    @add_arg_table args begin
+#=
+        "--output"
+        help = "Output file for the best solution"
+        arg_type = String
+        default = ""
+=#
+        "--input"
+        help = "Input file for a specific dog"
+        arg_type = String
+        default = ""
+
         "--alpha"
         help = "Cooling rate"
         arg_type = Float64
@@ -15,16 +26,6 @@ function main()
         help = "Minimum temperature"
         arg_type = Float64
         default = 0.1
-
-        "--output"
-        help = "Output file for the best solution"
-        arg_type = String
-        default = ""
-
-        "--input"
-        help = "Input file for a specific dog"
-        arg_type = String
-        default = ""
     end
 
     argv = parse_args(args)
@@ -58,12 +59,13 @@ function main()
         testaSolucao(melhorSolMove)
         println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
 
+#=
         if output_file != ""
             open(output_file, "w") do f
-                write(f, "Best Solution: ", melhorSolMove.valorFO, "\n")
+                write(f, printSolucao(melhorSolMove))
             end
         end
-
+=#
         println("==============================================")
     end
 end
