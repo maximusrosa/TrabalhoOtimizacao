@@ -297,7 +297,7 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
     tempoIter = tempoIter / MAX_STAGNANT_ITER
     
     # Retorna a solução final após certa quantia de iterações (MAX_STAGNANT_ITER) não causarem melhora na função objetivo.
-    return novaMelhorSol, tempoIter
+    return novaMelhorSol, s, tempoIter
 end
 
 function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
@@ -314,7 +314,7 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
         #println(" Temperatura: ", T)
         #println(" Limite tentativas PRN isolada: ", limiteHeuristPRN)
         
-        melhorSol, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
+        melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
         T = alpha * T
 
         count += 1
