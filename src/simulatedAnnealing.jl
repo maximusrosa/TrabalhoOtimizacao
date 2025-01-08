@@ -7,7 +7,7 @@ using Random
 
 const global TEMPERATURE_LENGTH = 1000
 const global TEMP_INCIAL = 100
-const global TIMEOUT_LIMIT = 15 * 60
+const global TIMEOUT_LIMIT = 60 * 10
 
 function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     # Remove a GPU da lista se já estiver presente
@@ -193,14 +193,14 @@ function temperaturaInicial(listaPRN, listaGPU)
     return T
 end
 
-function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
+function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn, timeoutLimit, temperatureLength)
     count = 0
 
     novaMelhorSol = deepcopy(melhorSol)
 
     tempoIter = 0.0
     
-    for i in 1:TEMPERATURE_LENGTH
+    for i in 1:temperatureLength
         # Seleciona um vizinho s' aleatoriamente da vizinhança N(s)
         tempoIn = time()
 
@@ -215,7 +215,6 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
         # Se sLinha é a melhor solução encontrada até o momento, atualiza novaMelhorSol
         if sLinha.valorFO < novaMelhorSol.valorFO
             novaMelhorSol = deepcopy(sLinha)
-            #println(" Tentativas: ", count, " Valor melhor solução: ", sLinha.valorFO)
             count = 0
         end
 
@@ -234,17 +233,17 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
             count += 1
         end
 
-        if (time() - timeIn > TIMEOUT_LIMIT)
+        if (time() - timeIn > timeoutLimit)
             break
         end
     end
-    tempoIter = tempoIter / TEMPERATURE_LENGTH
+    tempoIter = tempoIter / temperatureLength
     
-    # Retorna a solução final após certa quantia de iterações (TEMPERATURE_LENGTH)
+    # Retorna a solução final após certa quantia de iterações (temperatureLength)
     return novaMelhorSol, s, tempoIter
 end
 
-function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
+function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca, tempoLimite, tempLenght)
     melhorSol = s  # Inicializa melhor_sol com a solução inicial
 
     tempoTotal = 0.0
@@ -256,20 +255,17 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     while T > temperatura_minima
         limiteHeuristPRN = limiteTentPRNIsolada(temperaturaInicial, T)
         
-        melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
+        melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn, tempoLimite, tempLenght)
         T = alpha * T
 
         count += 1
         tempoTotalViz += tempoIter
 
-        # Verificação de tempo para parar após 30 segundos
-        if (time() - timeIn > TIMEOUT_LIMIT)
+        if (time() - timeIn > tempoLimite)
             break
         end
     end
     tempoTotal = time() - timeIn
-
-    #println("Tempo médio exec. vizinhança: ", tempoTotalViz / count)
 
     return melhorSol, tempoTotal  # Retorna a melhor solução encontrada, quando T chegar a uma temperatura minima.
 end
