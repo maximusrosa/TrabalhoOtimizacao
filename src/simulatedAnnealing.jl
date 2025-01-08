@@ -28,7 +28,7 @@ function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     insert!(gpusOrdenadasCap, idGPU, (gpu.id, gpu.capacidadeRestante))
 end
 
-function solucaoInicialGulosa(listaPRN, listaGPU, contTipoGPU)
+function solucaoInicialGulosa(listaPRN, listaGPU)
     local listaPRNAux
     local listaGPUAux
     local contTipoGPUAux
@@ -96,16 +96,36 @@ function solucaoInicialGulosa(listaPRN, listaGPU, contTipoGPU)
     return Solucao(listaPRNAux, listaGPUAux, contTipoGPUAux, valorFO)
 end
 
-function solucaoInicial(listaPRN, listaGPU, contTipoGPU)
-    for prn in listaPRN
-        for gpu in listaGPU
-            if gpu.capacidadeRestante >= prn.custo
-                addPRN(gpu, prn, contTipoGPU)
+function solucaoInicial(listaPRNIn, listaGPUIn)
+    local listaPRN
+    local listaGPU
+    local contTipoGPU
+
+    solValida = false
+    listaIdsPRN = collect(1:NUM_PRNs)
+    while (!solValida)
+        listaPRN = deepcopy(listaPRNIn)
+        listaGPU = deepcopy(listaGPUIn)
+        contTipoGPU = zeros(UInt8, NUM_GPUs, NUM_TIPOS)
+
+        solValida = true
+        for prnId in listaIdsPRN
+            alocado = false
+            prn = listaPRN[prnId]
+            for gpu in listaGPU
+                if gpu.capacidadeRestante >= prn.custo
+                    addPRN(gpu, prn, contTipoGPU)
+                    alocado = true
+                    break
+                end
+            end
+            if (alocado == false)
+                solValida = false
+                listaIdsPRN = shuffle(listaIdsPRN)
                 break
             end
         end
     end
-
     valorFO = sum(gpu.numTipos for gpu in listaGPU)
 
     return Solucao(listaPRN, listaGPU, contTipoGPU, valorFO)

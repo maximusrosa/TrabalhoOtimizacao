@@ -39,7 +39,8 @@ function main()
     input = (input_file == "") ? ["dog_1.txt", "dog_2.txt", "dog_3.txt", "dog_4.txt", "dog_5.txt", 
                                "dog_6.txt", "dog_7.txt", "dog_8.txt", "dog_9.txt", "dog_10.txt"] : [input_file]
 
-    for dog in input
+    #for dog in input
+    dog = "dog_10.txt"
         println("============ Processing ", dog ," ============")
         
         n, V, t, m, listaGPU, listaPRN, contTipoGPU = lerArquivo("dog/" * dog)
@@ -48,7 +49,7 @@ function main()
         global NUM_TIPOS = t
         global NUM_PRNs = m
 
-        solInicial = solucaoInicial(listaPRN, listaGPU, contTipoGPU)
+        solInicial = solucaoInicial(listaPRN, listaGPU)
         testaSolucao(solInicial)
         println("Solução Inicial: ", solInicial.valorFO)
 
@@ -60,15 +61,15 @@ function main()
         testaSolucao(melhorSolMove)
         println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
         salvaSol(melhorSolMove, "melhorSol_" * dog * ".txt")
-#=
+        #=
         if output_file != ""
             open(output_file, "w") do f
                 write(f, printSolucao(melhorSolMove))
             end
         end
-=#
+        =#
         println("==============================================")
-    end
+    #end
 end
 
 main()
