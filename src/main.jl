@@ -2,56 +2,45 @@ include("utils.jl")
 include("simulatedAnnealing.jl")
 include("salvaSol.jl")
 
-using ArgParse
+function parse_args(args)
+    output_file = ""
+    input_file = ""
+    alpha = 0.95
+    temperaturaMin = 0.1
+    temperaturaLength = 1000
+    tempoLimite = 600
+    tempInicial = 1000.0
 
-function main()
-    args = ArgParseSettings()
-    @add_arg_table args begin
-        "--output"
-        help = "Output file for the best solution"
-        arg_type = String
-        default = ""
-        
-        "--input"
-        help = "Input file for a specific dog"
-        arg_type = String
-        default = ""
-
-        "--alpha"
-        help = "Cooling rate"
-        arg_type = Float64
-        default = 0.95
-
-        "--temperaturaMin"
-        help = "Minimum temperature"
-        arg_type = Float64
-        default = 0.1
-
-        "--temperaturaLength"
-        help = "Number of iterations at each temperature"
-        arg_type = Int
-        default = 1000
-
-        "--timeoutLimit"
-        help = "Timeout limit in seconds"
-        arg_type = Int
-        default = 600
-
-        "--initialTemperature"
-        help = "Initial temperature"
-        arg_type = Float64
-        default = 1000.0
+    for i in 1:2:length(args)
+        if i + 1 > length(args)
+            break
+        end
+        arg = args[i]
+        value = args[i + 1]
+        if arg == "--output"
+            output_file = value
+        elseif arg == "--input"
+            input_file = value
+        elseif arg == "--alpha"
+            alpha = parse(Float64, value)
+        elseif arg == "--temperaturaMin"
+            temperaturaMin = parse(Float64, value)
+        elseif arg == "--temperaturaLength"
+            temperaturaLength = parse(Int, value)
+        elseif arg == "--timeoutLimit"
+            tempoLimite = parse(Int, value)
+        elseif arg == "--initialTemperature"
+            tempInicial = parse(Float64, value)
+        else
+            println("Argumento desconhecido: $arg")
+        end
     end
 
-    argv = parse_args(args)
+    return output_file, input_file, alpha, temperaturaMin, temperaturaLength, tempoLimite, tempInicial
+end
 
-    alpha = argv["alpha"]
-    temperaturaMin = argv["temperaturaMin"]
-    temperaturaLength = argv["temperaturaLength"]
-    tempoLimite = argv["timeoutLimit"]
-    output_file = argv["output"]
-    input_file = argv["input"]
-    tempInicial = argv["initialTemperature"]
+function main()
+    output_file, input_file, alpha, temperaturaMin, temperaturaLength, tempoLimite, tempInicial = parse_args(ARGS)
 
     input = (input_file == "") ? ["dog_1.txt", "dog_2.txt", "dog_3.txt", "dog_4.txt", "dog_5.txt", 
                                "dog_6.txt", "dog_7.txt", "dog_8.txt", "dog_9.txt", "dog_10.txt"] : [input_file]
