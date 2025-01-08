@@ -7,7 +7,7 @@ using Random
 
 const global TEMPERATURE_LENGTH = 1000
 const global TEMP_INCIAL = 100
-const global TIMEOUT_LIMIT = 30
+const global TIMEOUT_LIMIT = 15 * 60
 
 function ordenaGPUsCap(gpu, gpusOrdenadasCap)
     # Remove a GPU da lista se já estiver presente
@@ -233,7 +233,7 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
 
             count += 1
         end
-        println("Iteração Metropolis: ", i, " Valor melhor solução: ", novaMelhorSol.valorFO)
+
         if (time() - timeIn > TIMEOUT_LIMIT)
             break
         end
@@ -266,8 +266,6 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
         if (time() - timeIn > TIMEOUT_LIMIT)
             break
         end
-        println("===================================================")
-        println("Iteração: ", count, " Valor melhor solução: ", melhorSol.valorFO)
     end
     tempoTotal = time() - timeIn
 
