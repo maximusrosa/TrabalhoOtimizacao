@@ -53,14 +53,14 @@ function main()
         testaSolucao(solInicial)
         println("Solução Inicial: ", solInicial.valorFO)
 
-        T = 1000
+        T = 500
         
         println("\nVizinhança Move")
         vizinhanca = vizinhancaMove
         melhorSolMove, tempoExecMove = simulatedAnnealing(solInicial, T, alpha, temperaturaMin, vizinhanca)
         testaSolucao(melhorSolMove)
         println("Move: FO = ", melhorSolMove.valorFO, "\tTotal Time = ", tempoExecMove)
-        salvaSol(melhorSolMove, "melhorSol_" * dog * ".txt")
+        salvaSol(melhorSolMove, "melhorSol_" * dog)
         #=
         if output_file != ""
             open(output_file, "w") do f

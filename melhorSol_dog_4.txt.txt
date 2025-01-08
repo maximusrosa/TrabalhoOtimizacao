@@ -1,0 +1,898 @@
+Valor da Função Objetivo: 274
+
+Lista de GPUs e PRNs alocadas:
+GPU ID: 1, Num Tipos: 2, Capacidade Restante: 13
+  PRN Alocada: 2, custo = 23, tipo = 2
+  PRN Alocada: 3, custo = 23, tipo = 2
+  PRN Alocada: 6, custo = 27, tipo = 3
+  PRN Alocada: 20, custo = 26, tipo = 3
+  PRN Alocada: 78, custo = 38, tipo = 2
+GPU ID: 2, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 4, custo = 89, tipo = 3
+  PRN Alocada: 7, custo = 44, tipo = 3
+GPU ID: 3, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 10, custo = 49, tipo = 3
+  PRN Alocada: 145, custo = 99, tipo = 3
+GPU ID: 4, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 11, custo = 59, tipo = 1
+  PRN Alocada: 238, custo = 62, tipo = 1
+  PRN Alocada: 37, custo = 29, tipo = 1
+GPU ID: 5, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 9, custo = 78, tipo = 3
+  PRN Alocada: 12, custo = 51, tipo = 3
+GPU ID: 6, Num Tipos: 1, Capacidade Restante: 20
+  PRN Alocada: 13, custo = 93, tipo = 1
+  PRN Alocada: 15, custo = 37, tipo = 1
+GPU ID: 7, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 14, custo = 80, tipo = 3
+  PRN Alocada: 16, custo = 65, tipo = 3
+GPU ID: 8, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 17, custo = 46, tipo = 1
+  PRN Alocada: 18, custo = 35, tipo = 1
+  PRN Alocada: 22, custo = 46, tipo = 1
+  PRN Alocada: 77, custo = 21, tipo = 1
+GPU ID: 9, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 10, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 24, custo = 68, tipo = 2
+  PRN Alocada: 218, custo = 68, tipo = 2
+GPU ID: 11, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 23, custo = 87, tipo = 1
+  PRN Alocada: 33, custo = 62, tipo = 1
+GPU ID: 12, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 25, custo = 78, tipo = 3
+  PRN Alocada: 552, custo = 64, tipo = 3
+GPU ID: 13, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 27, custo = 93, tipo = 3
+  PRN Alocada: 36, custo = 50, tipo = 3
+GPU ID: 14, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 28, custo = 90, tipo = 3
+  PRN Alocada: 318, custo = 52, tipo = 3
+GPU ID: 15, Num Tipos: 1, Capacidade Restante: 53
+  PRN Alocada: 490, custo = 97, tipo = 1
+GPU ID: 16, Num Tipos: 1, Capacidade Restante: 33
+  PRN Alocada: 32, custo = 91, tipo = 3
+  PRN Alocada: 41, custo = 26, tipo = 3
+GPU ID: 17, Num Tipos: 1, Capacidade Restante: 11
+  PRN Alocada: 38, custo = 46, tipo = 1
+  PRN Alocada: 39, custo = 93, tipo = 1
+GPU ID: 18, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 40, custo = 93, tipo = 3
+  PRN Alocada: 48, custo = 53, tipo = 3
+GPU ID: 19, Num Tipos: 1, Capacidade Restante: 23
+  PRN Alocada: 43, custo = 62, tipo = 3
+  PRN Alocada: 143, custo = 65, tipo = 3
+GPU ID: 20, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 53, custo = 40, tipo = 3
+  PRN Alocada: 50, custo = 84, tipo = 3
+  PRN Alocada: 415, custo = 24, tipo = 3
+GPU ID: 21, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 46, custo = 76, tipo = 2
+  PRN Alocada: 47, custo = 58, tipo = 2
+GPU ID: 22, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 23, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 285, custo = 84, tipo = 2
+  PRN Alocada: 382, custo = 52, tipo = 2
+GPU ID: 24, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 51, custo = 88, tipo = 3
+  PRN Alocada: 55, custo = 34, tipo = 3
+  PRN Alocada: 71, custo = 26, tipo = 3
+GPU ID: 25, Num Tipos: 1, Capacidade Restante: 31
+  PRN Alocada: 57, custo = 46, tipo = 3
+  PRN Alocada: 164, custo = 39, tipo = 3
+  PRN Alocada: 305, custo = 34, tipo = 3
+GPU ID: 26, Num Tipos: 1, Capacidade Restante: 20
+  PRN Alocada: 58, custo = 54, tipo = 1
+  PRN Alocada: 65, custo = 48, tipo = 1
+  PRN Alocada: 104, custo = 28, tipo = 1
+GPU ID: 27, Num Tipos: 1, Capacidade Restante: 64
+  PRN Alocada: 60, custo = 64, tipo = 3
+  PRN Alocada: 79, custo = 22, tipo = 3
+GPU ID: 28, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 61, custo = 97, tipo = 3
+  PRN Alocada: 66, custo = 53, tipo = 3
+GPU ID: 29, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 64, custo = 69, tipo = 1
+  PRN Alocada: 68, custo = 65, tipo = 1
+GPU ID: 30, Num Tipos: 1, Capacidade Restante: 24
+  PRN Alocada: 67, custo = 97, tipo = 1
+  PRN Alocada: 89, custo = 29, tipo = 1
+GPU ID: 31, Num Tipos: 1, Capacidade Restante: 44
+  PRN Alocada: 70, custo = 81, tipo = 3
+  PRN Alocada: 80, custo = 25, tipo = 3
+GPU ID: 32, Num Tipos: 1, Capacidade Restante: 50
+  PRN Alocada: 75, custo = 57, tipo = 2
+  PRN Alocada: 599, custo = 43, tipo = 2
+GPU ID: 33, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 74, custo = 88, tipo = 2
+  PRN Alocada: 76, custo = 46, tipo = 2
+GPU ID: 34, Num Tipos: 1, Capacidade Restante: 43
+  PRN Alocada: 81, custo = 71, tipo = 1
+  PRN Alocada: 84, custo = 36, tipo = 1
+GPU ID: 35, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 82, custo = 99, tipo = 2
+  PRN Alocada: 184, custo = 21, tipo = 2
+  PRN Alocada: 258, custo = 30, tipo = 2
+GPU ID: 36, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 83, custo = 71, tipo = 2
+  PRN Alocada: 98, custo = 26, tipo = 2
+  PRN Alocada: 496, custo = 37, tipo = 2
+GPU ID: 37, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 86, custo = 86, tipo = 1
+  PRN Alocada: 171, custo = 59, tipo = 1
+GPU ID: 38, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 90, custo = 32, tipo = 2
+  PRN Alocada: 94, custo = 29, tipo = 2
+  PRN Alocada: 445, custo = 89, tipo = 2
+GPU ID: 39, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 91, custo = 91, tipo = 1
+  PRN Alocada: 92, custo = 51, tipo = 1
+GPU ID: 40, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 41, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 96, custo = 56, tipo = 3
+  PRN Alocada: 97, custo = 89, tipo = 3
+GPU ID: 42, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 99, custo = 48, tipo = 2
+  PRN Alocada: 100, custo = 94, tipo = 2
+GPU ID: 43, Num Tipos: 1, Capacidade Restante: 51
+  PRN Alocada: 102, custo = 69, tipo = 2
+  PRN Alocada: 503, custo = 30, tipo = 2
+GPU ID: 44, Num Tipos: 1, Capacidade Restante: 29
+  PRN Alocada: 103, custo = 100, tipo = 2
+  PRN Alocada: 220, custo = 21, tipo = 2
+GPU ID: 45, Num Tipos: 2, Capacidade Restante: 6
+  PRN Alocada: 105, custo = 66, tipo = 1
+  PRN Alocada: 109, custo = 25, tipo = 3
+  PRN Alocada: 111, custo = 23, tipo = 1
+  PRN Alocada: 120, custo = 30, tipo = 3
+GPU ID: 46, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 108, custo = 64, tipo = 1
+  PRN Alocada: 112, custo = 36, tipo = 1
+  PRN Alocada: 444, custo = 33, tipo = 1
+GPU ID: 47, Num Tipos: 1, Capacidade Restante: 11
+  PRN Alocada: 110, custo = 87, tipo = 3
+  PRN Alocada: 116, custo = 52, tipo = 3
+GPU ID: 48, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 122, custo = 28, tipo = 1
+  PRN Alocada: 392, custo = 41, tipo = 1
+  PRN Alocada: 198, custo = 79, tipo = 1
+GPU ID: 49, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 50, Num Tipos: 1, Capacidade Restante: 61
+  PRN Alocada: 598, custo = 89, tipo = 3
+GPU ID: 51, Num Tipos: 1, Capacidade Restante: 10
+  PRN Alocada: 123, custo = 89, tipo = 1
+  PRN Alocada: 423, custo = 51, tipo = 1
+GPU ID: 52, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 124, custo = 77, tipo = 2
+  PRN Alocada: 407, custo = 73, tipo = 2
+GPU ID: 53, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 127, custo = 37, tipo = 2
+  PRN Alocada: 131, custo = 29, tipo = 2
+  PRN Alocada: 310, custo = 67, tipo = 2
+GPU ID: 54, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 129, custo = 93, tipo = 2
+  PRN Alocada: 132, custo = 36, tipo = 2
+GPU ID: 55, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 369, custo = 20, tipo = 2
+  PRN Alocada: 183, custo = 91, tipo = 2
+  PRN Alocada: 455, custo = 23, tipo = 2
+GPU ID: 56, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 57, Num Tipos: 2, Capacidade Restante: 1
+  PRN Alocada: 139, custo = 25, tipo = 2
+  PRN Alocada: 140, custo = 27, tipo = 1
+  PRN Alocada: 148, custo = 24, tipo = 1
+  PRN Alocada: 300, custo = 26, tipo = 2
+  PRN Alocada: 537, custo = 47, tipo = 2
+GPU ID: 58, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 142, custo = 62, tipo = 2
+  PRN Alocada: 464, custo = 84, tipo = 2
+GPU ID: 59, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 146, custo = 44, tipo = 1
+  PRN Alocada: 162, custo = 92, tipo = 1
+GPU ID: 60, Num Tipos: 1, Capacidade Restante: 59
+  PRN Alocada: 525, custo = 91, tipo = 3
+GPU ID: 61, Num Tipos: 1, Capacidade Restante: 68
+  PRN Alocada: 147, custo = 46, tipo = 1
+  PRN Alocada: 155, custo = 36, tipo = 1
+GPU ID: 62, Num Tipos: 1, Capacidade Restante: 35
+  PRN Alocada: 151, custo = 47, tipo = 2
+  PRN Alocada: 349, custo = 68, tipo = 2
+GPU ID: 63, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 153, custo = 59, tipo = 3
+  PRN Alocada: 191, custo = 23, tipo = 3
+  PRN Alocada: 293, custo = 59, tipo = 3
+GPU ID: 64, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 160, custo = 25, tipo = 1
+  PRN Alocada: 331, custo = 26, tipo = 1
+  PRN Alocada: 224, custo = 87, tipo = 1
+GPU ID: 65, Num Tipos: 1, Capacidade Restante: 53
+  PRN Alocada: 571, custo = 97, tipo = 1
+GPU ID: 66, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 154, custo = 70, tipo = 2
+  PRN Alocada: 368, custo = 79, tipo = 2
+GPU ID: 67, Num Tipos: 1, Capacidade Restante: 34
+  PRN Alocada: 157, custo = 88, tipo = 2
+  PRN Alocada: 170, custo = 28, tipo = 2
+GPU ID: 68, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 159, custo = 70, tipo = 1
+  PRN Alocada: 182, custo = 37, tipo = 1
+  PRN Alocada: 418, custo = 28, tipo = 1
+GPU ID: 69, Num Tipos: 1, Capacidade Restante: 75
+  PRN Alocada: 87, custo = 75, tipo = 3
+GPU ID: 70, Num Tipos: 1, Capacidade Restante: 11
+  PRN Alocada: 165, custo = 82, tipo = 3
+  PRN Alocada: 278, custo = 57, tipo = 3
+GPU ID: 71, Num Tipos: 1, Capacidade Restante: 42
+  PRN Alocada: 167, custo = 74, tipo = 1
+  PRN Alocada: 484, custo = 34, tipo = 1
+GPU ID: 72, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 176, custo = 44, tipo = 1
+  PRN Alocada: 156, custo = 63, tipo = 1
+  PRN Alocada: 136, custo = 29, tipo = 1
+GPU ID: 73, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 169, custo = 88, tipo = 2
+  PRN Alocada: 175, custo = 55, tipo = 2
+GPU ID: 74, Num Tipos: 1, Capacidade Restante: 37
+  PRN Alocada: 173, custo = 92, tipo = 2
+  PRN Alocada: 396, custo = 21, tipo = 2
+GPU ID: 75, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 375, custo = 99, tipo = 1
+  PRN Alocada: 30, custo = 49, tipo = 1
+GPU ID: 76, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 177, custo = 64, tipo = 3
+  PRN Alocada: 179, custo = 79, tipo = 3
+GPU ID: 77, Num Tipos: 1, Capacidade Restante: 25
+  PRN Alocada: 178, custo = 99, tipo = 3
+  PRN Alocada: 221, custo = 26, tipo = 3
+GPU ID: 78, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 180, custo = 73, tipo = 1
+  PRN Alocada: 34, custo = 59, tipo = 1
+GPU ID: 79, Num Tipos: 1, Capacidade Restante: 35
+  PRN Alocada: 197, custo = 65, tipo = 1
+  PRN Alocada: 416, custo = 50, tipo = 1
+GPU ID: 80, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 81, Num Tipos: 1, Capacidade Restante: 6
+  PRN Alocada: 203, custo = 32, tipo = 3
+  PRN Alocada: 442, custo = 22, tipo = 3
+  PRN Alocada: 210, custo = 90, tipo = 3
+GPU ID: 82, Num Tipos: 1, Capacidade Restante: 20
+  PRN Alocada: 204, custo = 41, tipo = 1
+  PRN Alocada: 507, custo = 89, tipo = 1
+GPU ID: 83, Num Tipos: 1, Capacidade Restante: 6
+  PRN Alocada: 205, custo = 52, tipo = 2
+  PRN Alocada: 419, custo = 30, tipo = 2
+  PRN Alocada: 69, custo = 37, tipo = 2
+  PRN Alocada: 239, custo = 25, tipo = 2
+GPU ID: 84, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 188, custo = 96, tipo = 1
+  PRN Alocada: 206, custo = 51, tipo = 1
+GPU ID: 85, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 190, custo = 80, tipo = 1
+  PRN Alocada: 202, custo = 53, tipo = 1
+GPU ID: 86, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 193, custo = 88, tipo = 3
+  PRN Alocada: 207, custo = 41, tipo = 3
+GPU ID: 87, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 200, custo = 65, tipo = 3
+  PRN Alocada: 513, custo = 83, tipo = 3
+GPU ID: 88, Num Tipos: 1, Capacidade Restante: 10
+  PRN Alocada: 222, custo = 24, tipo = 2
+  PRN Alocada: 195, custo = 25, tipo = 2
+  PRN Alocada: 378, custo = 91, tipo = 2
+GPU ID: 89, Num Tipos: 1, Capacidade Restante: 10
+  PRN Alocada: 211, custo = 39, tipo = 1
+  PRN Alocada: 1, custo = 43, tipo = 1
+  PRN Alocada: 430, custo = 58, tipo = 1
+GPU ID: 90, Num Tipos: 1, Capacidade Restante: 25
+  PRN Alocada: 212, custo = 39, tipo = 1
+  PRN Alocada: 261, custo = 86, tipo = 1
+GPU ID: 91, Num Tipos: 1, Capacidade Restante: 22
+  PRN Alocada: 213, custo = 71, tipo = 2
+  PRN Alocada: 215, custo = 29, tipo = 2
+  PRN Alocada: 217, custo = 28, tipo = 2
+GPU ID: 92, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 214, custo = 87, tipo = 2
+  PRN Alocada: 570, custo = 48, tipo = 2
+GPU ID: 93, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 94, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 219, custo = 86, tipo = 2
+  PRN Alocada: 226, custo = 33, tipo = 2
+  PRN Alocada: 228, custo = 28, tipo = 2
+GPU ID: 95, Num Tipos: 1, Capacidade Restante: 27
+  PRN Alocada: 223, custo = 74, tipo = 3
+  PRN Alocada: 230, custo = 49, tipo = 3
+GPU ID: 96, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 231, custo = 62, tipo = 2
+  PRN Alocada: 49, custo = 88, tipo = 2
+GPU ID: 97, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 232, custo = 40, tipo = 1
+  PRN Alocada: 536, custo = 22, tipo = 1
+  PRN Alocada: 309, custo = 72, tipo = 1
+GPU ID: 98, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 233, custo = 61, tipo = 1
+  PRN Alocada: 135, custo = 88, tipo = 1
+GPU ID: 99, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 235, custo = 94, tipo = 1
+  PRN Alocada: 587, custo = 40, tipo = 1
+GPU ID: 100, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 245, custo = 26, tipo = 1
+  PRN Alocada: 317, custo = 87, tipo = 1
+  PRN Alocada: 351, custo = 33, tipo = 1
+GPU ID: 101, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 240, custo = 64, tipo = 3
+  PRN Alocada: 284, custo = 23, tipo = 3
+  PRN Alocada: 125, custo = 61, tipo = 3
+GPU ID: 102, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 242, custo = 72, tipo = 2
+  PRN Alocada: 246, custo = 31, tipo = 2
+  PRN Alocada: 270, custo = 47, tipo = 2
+GPU ID: 103, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 243, custo = 44, tipo = 2
+  PRN Alocada: 509, custo = 99, tipo = 2
+GPU ID: 104, Num Tipos: 1, Capacidade Restante: 30
+  PRN Alocada: 247, custo = 81, tipo = 3
+  PRN Alocada: 248, custo = 39, tipo = 3
+GPU ID: 105, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 249, custo = 56, tipo = 1
+  PRN Alocada: 272, custo = 25, tipo = 1
+  PRN Alocada: 149, custo = 67, tipo = 1
+GPU ID: 106, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 252, custo = 64, tipo = 2
+  PRN Alocada: 254, custo = 74, tipo = 2
+GPU ID: 107, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 253, custo = 96, tipo = 1
+  PRN Alocada: 263, custo = 53, tipo = 1
+GPU ID: 108, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 255, custo = 85, tipo = 1
+  PRN Alocada: 264, custo = 39, tipo = 1
+GPU ID: 109, Num Tipos: 1, Capacidade Restante: 28
+  PRN Alocada: 266, custo = 37, tipo = 3
+  PRN Alocada: 181, custo = 85, tipo = 3
+GPU ID: 110, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 259, custo = 79, tipo = 3
+  PRN Alocada: 262, custo = 69, tipo = 3
+GPU ID: 111, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 112, Num Tipos: 1, Capacidade Restante: 45
+  PRN Alocada: 296, custo = 30, tipo = 2
+  PRN Alocada: 8, custo = 75, tipo = 2
+GPU ID: 113, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 268, custo = 75, tipo = 2
+  PRN Alocada: 532, custo = 34, tipo = 2
+  PRN Alocada: 280, custo = 23, tipo = 2
+GPU ID: 114, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 271, custo = 97, tipo = 3
+  PRN Alocada: 518, custo = 53, tipo = 3
+GPU ID: 115, Num Tipos: 1, Capacidade Restante: 32
+  PRN Alocada: 274, custo = 90, tipo = 3
+  PRN Alocada: 113, custo = 28, tipo = 3
+GPU ID: 116, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 275, custo = 75, tipo = 1
+  PRN Alocada: 101, custo = 54, tipo = 1
+  PRN Alocada: 565, custo = 20, tipo = 1
+GPU ID: 117, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 276, custo = 100, tipo = 2
+  PRN Alocada: 282, custo = 50, tipo = 2
+GPU ID: 118, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 277, custo = 82, tipo = 3
+  PRN Alocada: 283, custo = 53, tipo = 3
+GPU ID: 119, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 279, custo = 88, tipo = 1
+  PRN Alocada: 500, custo = 36, tipo = 1
+GPU ID: 120, Num Tipos: 1, Capacidade Restante: 22
+  PRN Alocada: 289, custo = 43, tipo = 1
+  PRN Alocada: 402, custo = 23, tipo = 1
+  PRN Alocada: 431, custo = 62, tipo = 1
+GPU ID: 121, Num Tipos: 1, Capacidade Restante: 32
+  PRN Alocada: 290, custo = 59, tipo = 2
+  PRN Alocada: 352, custo = 59, tipo = 2
+GPU ID: 122, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 123, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 124, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 294, custo = 82, tipo = 1
+  PRN Alocada: 545, custo = 26, tipo = 1
+  PRN Alocada: 414, custo = 37, tipo = 1
+GPU ID: 125, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 297, custo = 72, tipo = 1
+  PRN Alocada: 573, custo = 73, tipo = 1
+GPU ID: 126, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 299, custo = 97, tipo = 1
+  PRN Alocada: 548, custo = 41, tipo = 1
+GPU ID: 127, Num Tipos: 1, Capacidade Restante: 6
+  PRN Alocada: 302, custo = 76, tipo = 1
+  PRN Alocada: 436, custo = 68, tipo = 1
+GPU ID: 128, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 307, custo = 51, tipo = 3
+  PRN Alocada: 433, custo = 73, tipo = 3
+GPU ID: 129, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 308, custo = 83, tipo = 3
+  PRN Alocada: 324, custo = 66, tipo = 3
+GPU ID: 130, Num Tipos: 1, Capacidade Restante: 6
+  PRN Alocada: 313, custo = 54, tipo = 2
+  PRN Alocada: 406, custo = 24, tipo = 2
+  PRN Alocada: 144, custo = 66, tipo = 2
+GPU ID: 131, Num Tipos: 1, Capacidade Restante: 24
+  PRN Alocada: 311, custo = 96, tipo = 2
+  PRN Alocada: 328, custo = 30, tipo = 2
+GPU ID: 132, Num Tipos: 1, Capacidade Restante: 40
+  PRN Alocada: 316, custo = 62, tipo = 2
+  PRN Alocada: 380, custo = 25, tipo = 2
+  PRN Alocada: 287, custo = 23, tipo = 2
+GPU ID: 133, Num Tipos: 1, Capacidade Restante: 65
+  PRN Alocada: 358, custo = 85, tipo = 2
+GPU ID: 134, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 319, custo = 46, tipo = 2
+  PRN Alocada: 409, custo = 88, tipo = 2
+GPU ID: 135, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 320, custo = 47, tipo = 3
+  PRN Alocada: 321, custo = 95, tipo = 3
+GPU ID: 136, Num Tipos: 1, Capacidade Restante: 28
+  PRN Alocada: 322, custo = 75, tipo = 3
+  PRN Alocada: 323, custo = 47, tipo = 3
+GPU ID: 137, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 325, custo = 52, tipo = 1
+  PRN Alocada: 199, custo = 89, tipo = 1
+GPU ID: 138, Num Tipos: 1, Capacidade Restante: 6
+  PRN Alocada: 326, custo = 40, tipo = 1
+  PRN Alocada: 329, custo = 66, tipo = 1
+  PRN Alocada: 295, custo = 38, tipo = 1
+GPU ID: 139, Num Tipos: 1, Capacidade Restante: 34
+  PRN Alocada: 334, custo = 31, tipo = 2
+  PRN Alocada: 166, custo = 58, tipo = 2
+  PRN Alocada: 234, custo = 27, tipo = 2
+GPU ID: 140, Num Tipos: 1, Capacidade Restante: 36
+  PRN Alocada: 335, custo = 75, tipo = 3
+  PRN Alocada: 341, custo = 39, tipo = 3
+GPU ID: 141, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 336, custo = 53, tipo = 3
+  PRN Alocada: 344, custo = 35, tipo = 3
+  PRN Alocada: 117, custo = 55, tipo = 3
+GPU ID: 142, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 338, custo = 45, tipo = 1
+  PRN Alocada: 339, custo = 97, tipo = 1
+GPU ID: 143, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 340, custo = 100, tipo = 1
+  PRN Alocada: 345, custo = 34, tipo = 1
+GPU ID: 144, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 342, custo = 92, tipo = 1
+  PRN Alocada: 346, custo = 41, tipo = 1
+GPU ID: 145, Num Tipos: 1, Capacidade Restante: 41
+  PRN Alocada: 347, custo = 54, tipo = 3
+  PRN Alocada: 549, custo = 55, tipo = 3
+GPU ID: 146, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 348, custo = 64, tipo = 1
+  PRN Alocada: 128, custo = 72, tipo = 1
+GPU ID: 147, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 350, custo = 64, tipo = 3
+  PRN Alocada: 355, custo = 26, tipo = 3
+  PRN Alocada: 497, custo = 60, tipo = 3
+GPU ID: 148, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 354, custo = 73, tipo = 1
+  PRN Alocada: 5, custo = 76, tipo = 1
+GPU ID: 149, Num Tipos: 1, Capacidade Restante: 59
+  PRN Alocada: 356, custo = 33, tipo = 3
+  PRN Alocada: 359, custo = 58, tipo = 3
+GPU ID: 150, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 360, custo = 26, tipo = 3
+  PRN Alocada: 362, custo = 28, tipo = 3
+  PRN Alocada: 553, custo = 89, tipo = 3
+GPU ID: 151, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 361, custo = 71, tipo = 3
+  PRN Alocada: 365, custo = 63, tipo = 3
+GPU ID: 152, Num Tipos: 1, Capacidade Restante: 13
+  PRN Alocada: 363, custo = 90, tipo = 1
+  PRN Alocada: 366, custo = 47, tipo = 1
+GPU ID: 153, Num Tipos: 1, Capacidade Restante: 19
+  PRN Alocada: 371, custo = 39, tipo = 2
+  PRN Alocada: 386, custo = 92, tipo = 2
+GPU ID: 154, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 367, custo = 68, tipo = 1
+  PRN Alocada: 575, custo = 46, tipo = 1
+  PRN Alocada: 494, custo = 22, tipo = 1
+GPU ID: 155, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 370, custo = 74, tipo = 2
+  PRN Alocada: 373, custo = 27, tipo = 2
+  PRN Alocada: 377, custo = 47, tipo = 2
+GPU ID: 156, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 372, custo = 83, tipo = 1
+  PRN Alocada: 281, custo = 63, tipo = 1
+GPU ID: 157, Num Tipos: 1, Capacidade Restante: 30
+  PRN Alocada: 115, custo = 96, tipo = 2
+  PRN Alocada: 487, custo = 24, tipo = 2
+GPU ID: 158, Num Tipos: 1, Capacidade Restante: 13
+  PRN Alocada: 376, custo = 54, tipo = 3
+  PRN Alocada: 29, custo = 83, tipo = 3
+GPU ID: 159, Num Tipos: 1, Capacidade Restante: 48
+  PRN Alocada: 379, custo = 66, tipo = 1
+  PRN Alocada: 288, custo = 36, tipo = 1
+GPU ID: 160, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 383, custo = 53, tipo = 3
+  PRN Alocada: 498, custo = 92, tipo = 3
+GPU ID: 161, Num Tipos: 1, Capacidade Restante: 30
+  PRN Alocada: 384, custo = 56, tipo = 1
+  PRN Alocada: 410, custo = 28, tipo = 1
+  PRN Alocada: 333, custo = 36, tipo = 1
+GPU ID: 162, Num Tipos: 1, Capacidade Restante: 34
+  PRN Alocada: 387, custo = 48, tipo = 1
+  PRN Alocada: 31, custo = 68, tipo = 1
+GPU ID: 163, Num Tipos: 1, Capacidade Restante: 35
+  PRN Alocada: 388, custo = 58, tipo = 3
+  PRN Alocada: 389, custo = 57, tipo = 3
+GPU ID: 164, Num Tipos: 1, Capacidade Restante: 31
+  PRN Alocada: 390, custo = 52, tipo = 1
+  PRN Alocada: 391, custo = 67, tipo = 1
+GPU ID: 165, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 394, custo = 45, tipo = 3
+  PRN Alocada: 443, custo = 24, tipo = 3
+  PRN Alocada: 134, custo = 67, tipo = 3
+GPU ID: 166, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 395, custo = 44, tipo = 2
+  PRN Alocada: 397, custo = 98, tipo = 2
+GPU ID: 167, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 398, custo = 59, tipo = 2
+  PRN Alocada: 399, custo = 65, tipo = 2
+  PRN Alocada: 465, custo = 25, tipo = 2
+GPU ID: 168, Num Tipos: 1, Capacidade Restante: 10
+  PRN Alocada: 400, custo = 100, tipo = 1
+  PRN Alocada: 401, custo = 40, tipo = 1
+GPU ID: 169, Num Tipos: 1, Capacidade Restante: 42
+  PRN Alocada: 403, custo = 80, tipo = 3
+  PRN Alocada: 422, custo = 28, tipo = 3
+GPU ID: 170, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 405, custo = 60, tipo = 1
+  PRN Alocada: 118, custo = 74, tipo = 1
+GPU ID: 171, Num Tipos: 1, Capacidade Restante: 36
+  PRN Alocada: 408, custo = 51, tipo = 1
+  PRN Alocada: 52, custo = 63, tipo = 1
+GPU ID: 172, Num Tipos: 1, Capacidade Restante: 38
+  PRN Alocada: 411, custo = 58, tipo = 2
+  PRN Alocada: 412, custo = 54, tipo = 2
+GPU ID: 173, Num Tipos: 1, Capacidade Restante: 50
+  PRN Alocada: 413, custo = 80, tipo = 3
+  PRN Alocada: 63, custo = 20, tipo = 3
+GPU ID: 174, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 420, custo = 87, tipo = 3
+  PRN Alocada: 269, custo = 37, tipo = 3
+GPU ID: 175, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 421, custo = 49, tipo = 3
+  PRN Alocada: 429, custo = 43, tipo = 3
+  PRN Alocada: 196, custo = 42, tipo = 3
+GPU ID: 176, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 424, custo = 85, tipo = 1
+  PRN Alocada: 425, custo = 51, tipo = 1
+GPU ID: 177, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 426, custo = 81, tipo = 3
+  PRN Alocada: 427, custo = 55, tipo = 3
+GPU ID: 178, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 428, custo = 77, tipo = 3
+  PRN Alocada: 225, custo = 58, tipo = 3
+GPU ID: 179, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 180, Num Tipos: 1, Capacidade Restante: 46
+  PRN Alocada: 434, custo = 53, tipo = 1
+  PRN Alocada: 439, custo = 51, tipo = 1
+GPU ID: 181, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 435, custo = 74, tipo = 2
+  PRN Alocada: 385, custo = 62, tipo = 2
+GPU ID: 182, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 437, custo = 29, tipo = 3
+  PRN Alocada: 438, custo = 56, tipo = 3
+  PRN Alocada: 540, custo = 26, tipo = 3
+  PRN Alocada: 250, custo = 36, tipo = 3
+GPU ID: 183, Num Tipos: 1, Capacidade Restante: 22
+  PRN Alocada: 440, custo = 94, tipo = 3
+  PRN Alocada: 267, custo = 34, tipo = 3
+GPU ID: 184, Num Tipos: 1, Capacidade Restante: 27
+  PRN Alocada: 448, custo = 65, tipo = 3
+  PRN Alocada: 306, custo = 58, tipo = 3
+GPU ID: 185, Num Tipos: 1, Capacidade Restante: 58
+  PRN Alocada: 451, custo = 53, tipo = 1
+  PRN Alocada: 404, custo = 39, tipo = 1
+GPU ID: 186, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 452, custo = 31, tipo = 3
+  PRN Alocada: 522, custo = 24, tipo = 3
+  PRN Alocada: 332, custo = 90, tipo = 3
+GPU ID: 187, Num Tipos: 1, Capacidade Restante: 37
+  PRN Alocada: 447, custo = 91, tipo = 2
+  PRN Alocada: 592, custo = 22, tipo = 2
+GPU ID: 188, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 449, custo = 89, tipo = 2
+  PRN Alocada: 62, custo = 56, tipo = 2
+GPU ID: 189, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 450, custo = 77, tipo = 2
+  PRN Alocada: 456, custo = 64, tipo = 2
+GPU ID: 190, Num Tipos: 1, Capacidade Restante: 37
+  PRN Alocada: 458, custo = 84, tipo = 2
+  PRN Alocada: 482, custo = 29, tipo = 2
+GPU ID: 191, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 462, custo = 30, tipo = 2
+  PRN Alocada: 469, custo = 43, tipo = 2
+  PRN Alocada: 45, custo = 76, tipo = 2
+GPU ID: 192, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 460, custo = 85, tipo = 1
+  PRN Alocada: 138, custo = 36, tipo = 1
+  PRN Alocada: 327, custo = 25, tipo = 1
+GPU ID: 193, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 461, custo = 100, tipo = 2
+  PRN Alocada: 471, custo = 50, tipo = 2
+GPU ID: 194, Num Tipos: 1, Capacidade Restante: 30
+  PRN Alocada: 463, custo = 68, tipo = 1
+  PRN Alocada: 468, custo = 52, tipo = 1
+GPU ID: 195, Num Tipos: 1, Capacidade Restante: 25
+  PRN Alocada: 472, custo = 45, tipo = 1
+  PRN Alocada: 393, custo = 80, tipo = 1
+GPU ID: 196, Num Tipos: 1, Capacidade Restante: 10
+  PRN Alocada: 467, custo = 100, tipo = 2
+  PRN Alocada: 474, custo = 40, tipo = 2
+GPU ID: 197, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 470, custo = 98, tipo = 1
+  PRN Alocada: 479, custo = 34, tipo = 1
+GPU ID: 198, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 505, custo = 29, tipo = 3
+  PRN Alocada: 381, custo = 68, tipo = 3
+  PRN Alocada: 315, custo = 37, tipo = 3
+GPU ID: 199, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 480, custo = 49, tipo = 3
+  PRN Alocada: 237, custo = 92, tipo = 3
+GPU ID: 200, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 477, custo = 95, tipo = 3
+  PRN Alocada: 454, custo = 54, tipo = 3
+GPU ID: 201, Num Tipos: 1, Capacidade Restante: 29
+  PRN Alocada: 483, custo = 69, tipo = 3
+  PRN Alocada: 85, custo = 52, tipo = 3
+GPU ID: 202, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 481, custo = 100, tipo = 3
+  PRN Alocada: 236, custo = 32, tipo = 3
+GPU ID: 203, Num Tipos: 1, Capacidade Restante: 19
+  PRN Alocada: 486, custo = 69, tipo = 2
+  PRN Alocada: 35, custo = 62, tipo = 2
+GPU ID: 204, Num Tipos: 1, Capacidade Restante: 44
+  PRN Alocada: 489, custo = 54, tipo = 2
+  PRN Alocada: 493, custo = 52, tipo = 2
+GPU ID: 205, Num Tipos: 1, Capacidade Restante: 62
+  PRN Alocada: 227, custo = 88, tipo = 3
+GPU ID: 206, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 492, custo = 78, tipo = 2
+  PRN Alocada: 141, custo = 72, tipo = 2
+GPU ID: 207, Num Tipos: 1, Capacidade Restante: 51
+  PRN Alocada: 130, custo = 99, tipo = 3
+GPU ID: 208, Num Tipos: 1, Capacidade Restante: 11
+  PRN Alocada: 502, custo = 43, tipo = 1
+  PRN Alocada: 256, custo = 96, tipo = 1
+GPU ID: 209, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 499, custo = 88, tipo = 1
+  PRN Alocada: 337, custo = 59, tipo = 1
+GPU ID: 210, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 501, custo = 68, tipo = 1
+  PRN Alocada: 504, custo = 68, tipo = 1
+GPU ID: 211, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 506, custo = 71, tipo = 1
+  PRN Alocada: 520, custo = 43, tipo = 1
+  PRN Alocada: 595, custo = 35, tipo = 1
+GPU ID: 212, Num Tipos: 1, Capacidade Restante: 13
+  PRN Alocada: 517, custo = 53, tipo = 3
+  PRN Alocada: 158, custo = 27, tipo = 3
+  PRN Alocada: 353, custo = 57, tipo = 3
+GPU ID: 213, Num Tipos: 1, Capacidade Restante: 14
+  PRN Alocada: 508, custo = 85, tipo = 1
+  PRN Alocada: 528, custo = 51, tipo = 1
+GPU ID: 214, Num Tipos: 1, Capacidade Restante: 27
+  PRN Alocada: 524, custo = 25, tipo = 1
+  PRN Alocada: 56, custo = 98, tipo = 1
+GPU ID: 215, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 512, custo = 85, tipo = 2
+  PRN Alocada: 519, custo = 56, tipo = 2
+GPU ID: 216, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 527, custo = 65, tipo = 2
+  PRN Alocada: 114, custo = 67, tipo = 2
+GPU ID: 217, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 515, custo = 97, tipo = 3
+  PRN Alocada: 453, custo = 36, tipo = 3
+GPU ID: 218, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 516, custo = 100, tipo = 1
+  PRN Alocada: 485, custo = 47, tipo = 1
+GPU ID: 219, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 521, custo = 97, tipo = 2
+  PRN Alocada: 530, custo = 32, tipo = 2
+GPU ID: 220, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 523, custo = 75, tipo = 1
+  PRN Alocada: 531, custo = 35, tipo = 1
+  PRN Alocada: 241, custo = 39, tipo = 1
+GPU ID: 221, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 222, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 526, custo = 81, tipo = 3
+  PRN Alocada: 511, custo = 53, tipo = 3
+GPU ID: 223, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 539, custo = 47, tipo = 3
+  PRN Alocada: 312, custo = 87, tipo = 3
+GPU ID: 224, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 535, custo = 99, tipo = 2
+  PRN Alocada: 541, custo = 29, tipo = 2
+  PRN Alocada: 26, custo = 21, tipo = 2
+GPU ID: 225, Num Tipos: 1, Capacidade Restante: 18
+  PRN Alocada: 538, custo = 80, tipo = 3
+  PRN Alocada: 543, custo = 52, tipo = 3
+GPU ID: 226, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 542, custo = 77, tipo = 2
+  PRN Alocada: 544, custo = 52, tipo = 2
+GPU ID: 227, Num Tipos: 1, Capacidade Restante: 2
+  PRN Alocada: 546, custo = 59, tipo = 3
+  PRN Alocada: 547, custo = 26, tipo = 3
+  PRN Alocada: 551, custo = 37, tipo = 3
+  PRN Alocada: 106, custo = 26, tipo = 3
+GPU ID: 228, Num Tipos: 1, Capacidade Restante: 44
+  PRN Alocada: 550, custo = 49, tipo = 2
+  PRN Alocada: 475, custo = 57, tipo = 2
+GPU ID: 229, Num Tipos: 1, Capacidade Restante: 36
+  PRN Alocada: 555, custo = 43, tipo = 1
+  PRN Alocada: 567, custo = 28, tipo = 1
+  PRN Alocada: 357, custo = 43, tipo = 1
+GPU ID: 230, Num Tipos: 1, Capacidade Restante: 37
+  PRN Alocada: 562, custo = 48, tipo = 1
+  PRN Alocada: 441, custo = 65, tipo = 1
+GPU ID: 231, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 232, Num Tipos: 1, Capacidade Restante: 5
+  PRN Alocada: 556, custo = 69, tipo = 1
+  PRN Alocada: 488, custo = 76, tipo = 1
+GPU ID: 233, Num Tipos: 1, Capacidade Restante: 37
+  PRN Alocada: 557, custo = 90, tipo = 2
+  PRN Alocada: 510, custo = 23, tipo = 2
+GPU ID: 234, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 559, custo = 84, tipo = 3
+  PRN Alocada: 560, custo = 63, tipo = 3
+GPU ID: 235, Num Tipos: 1, Capacidade Restante: 62
+  PRN Alocada: 432, custo = 88, tipo = 3
+GPU ID: 236, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 563, custo = 74, tipo = 3
+  PRN Alocada: 558, custo = 73, tipo = 3
+GPU ID: 237, Num Tipos: 1, Capacidade Restante: 28
+  PRN Alocada: 576, custo = 47, tipo = 3
+  PRN Alocada: 119, custo = 75, tipo = 3
+GPU ID: 238, Num Tipos: 1, Capacidade Restante: 17
+  PRN Alocada: 577, custo = 39, tipo = 2
+  PRN Alocada: 495, custo = 94, tipo = 2
+GPU ID: 239, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 568, custo = 97, tipo = 2
+  PRN Alocada: 529, custo = 41, tipo = 2
+GPU ID: 240, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 580, custo = 52, tipo = 2
+  PRN Alocada: 291, custo = 86, tipo = 2
+GPU ID: 241, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 581, custo = 27, tipo = 2
+  PRN Alocada: 591, custo = 25, tipo = 2
+  PRN Alocada: 93, custo = 72, tipo = 2
+GPU ID: 242, Num Tipos: 1, Capacidade Restante: 9
+  PRN Alocada: 579, custo = 75, tipo = 1
+  PRN Alocada: 457, custo = 37, tipo = 1
+  PRN Alocada: 257, custo = 29, tipo = 1
+GPU ID: 243, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 582, custo = 92, tipo = 2
+  PRN Alocada: 583, custo = 32, tipo = 2
+GPU ID: 244, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 584, custo = 64, tipo = 1
+  PRN Alocada: 473, custo = 60, tipo = 1
+GPU ID: 245, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 246, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 588, custo = 32, tipo = 3
+  PRN Alocada: 589, custo = 35, tipo = 3
+  PRN Alocada: 590, custo = 50, tipo = 3
+  PRN Alocada: 596, custo = 32, tipo = 3
+GPU ID: 247, Num Tipos: 1, Capacidade Restante: 38
+  PRN Alocada: 593, custo = 83, tipo = 2
+  PRN Alocada: 600, custo = 29, tipo = 2
+GPU ID: 248, Num Tipos: 1, Capacidade Restante: 7
+  PRN Alocada: 594, custo = 68, tipo = 2
+  PRN Alocada: 597, custo = 75, tipo = 2
+GPU ID: 249, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 250, Num Tipos: 1, Capacidade Restante: 57
+  PRN Alocada: 73, custo = 93, tipo = 1
+GPU ID: 251, Num Tipos: 1, Capacidade Restante: 22
+  PRN Alocada: 186, custo = 98, tipo = 2
+  PRN Alocada: 107, custo = 30, tipo = 2
+GPU ID: 252, Num Tipos: 1, Capacidade Restante: 13
+  PRN Alocada: 564, custo = 98, tipo = 1
+  PRN Alocada: 72, custo = 39, tipo = 1
+GPU ID: 253, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 254, Num Tipos: 1, Capacidade Restante: 38
+  PRN Alocada: 446, custo = 91, tipo = 2
+  PRN Alocada: 251, custo = 21, tipo = 2
+GPU ID: 255, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 208, custo = 37, tipo = 3
+  PRN Alocada: 374, custo = 61, tipo = 3
+  PRN Alocada: 514, custo = 36, tipo = 3
+GPU ID: 256, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 44, custo = 99, tipo = 2
+  PRN Alocada: 201, custo = 25, tipo = 2
+GPU ID: 257, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 258, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 569, custo = 95, tipo = 3
+  PRN Alocada: 578, custo = 52, tipo = 3
+GPU ID: 259, Num Tipos: 1, Capacidade Restante: 29
+  PRN Alocada: 476, custo = 98, tipo = 1
+  PRN Alocada: 126, custo = 23, tipo = 1
+GPU ID: 260, Num Tipos: 1, Capacidade Restante: 8
+  PRN Alocada: 459, custo = 77, tipo = 1
+  PRN Alocada: 265, custo = 65, tipo = 1
+GPU ID: 261, Num Tipos: 1, Capacidade Restante: 4
+  PRN Alocada: 187, custo = 97, tipo = 3
+  PRN Alocada: 466, custo = 49, tipo = 3
+GPU ID: 262, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 263, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 264, Num Tipos: 1, Capacidade Restante: 29
+  PRN Alocada: 574, custo = 60, tipo = 2
+  PRN Alocada: 478, custo = 61, tipo = 2
+GPU ID: 265, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 21, custo = 73, tipo = 3
+  PRN Alocada: 216, custo = 74, tipo = 3
+GPU ID: 266, Num Tipos: 1, Capacidade Restante: 19
+  PRN Alocada: 292, custo = 89, tipo = 3
+  PRN Alocada: 172, custo = 42, tipo = 3
+GPU ID: 267, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 533, custo = 86, tipo = 1
+  PRN Alocada: 534, custo = 63, tipo = 1
+GPU ID: 268, Num Tipos: 1, Capacidade Restante: 11
+  PRN Alocada: 88, custo = 57, tipo = 2
+  PRN Alocada: 229, custo = 82, tipo = 2
+GPU ID: 269, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 174, custo = 94, tipo = 1
+  PRN Alocada: 491, custo = 35, tipo = 1
+GPU ID: 270, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 271, Num Tipos: 1, Capacidade Restante: 0
+  PRN Alocada: 185, custo = 96, tipo = 2
+  PRN Alocada: 121, custo = 54, tipo = 2
+GPU ID: 272, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 566, custo = 93, tipo = 3
+  PRN Alocada: 301, custo = 42, tipo = 3
+GPU ID: 273, Num Tipos: 1, Capacidade Restante: 58
+  PRN Alocada: 364, custo = 92, tipo = 3
+GPU ID: 274, Num Tipos: 1, Capacidade Restante: 12
+  PRN Alocada: 168, custo = 97, tipo = 2
+  PRN Alocada: 330, custo = 41, tipo = 2
+GPU ID: 275, Num Tipos: 1, Capacidade Restante: 52
+  PRN Alocada: 244, custo = 98, tipo = 3
+GPU ID: 276, Num Tipos: 1, Capacidade Restante: 13
+  PRN Alocada: 152, custo = 92, tipo = 1
+  PRN Alocada: 54, custo = 45, tipo = 1
+GPU ID: 277, Num Tipos: 1, Capacidade Restante: 26
+  PRN Alocada: 286, custo = 88, tipo = 1
+  PRN Alocada: 189, custo = 36, tipo = 1
+GPU ID: 278, Num Tipos: 1, Capacidade Restante: 31
+  PRN Alocada: 209, custo = 94, tipo = 3
+  PRN Alocada: 163, custo = 25, tipo = 3
+GPU ID: 279, Num Tipos: 1, Capacidade Restante: 16
+  PRN Alocada: 586, custo = 76, tipo = 2
+  PRN Alocada: 417, custo = 58, tipo = 2
+GPU ID: 280, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 281, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 137, custo = 94, tipo = 3
+  PRN Alocada: 161, custo = 53, tipo = 3
+GPU ID: 282, Num Tipos: 1, Capacidade Restante: 23
+  PRN Alocada: 303, custo = 86, tipo = 2
+  PRN Alocada: 273, custo = 41, tipo = 2
+GPU ID: 283, Num Tipos: 1, Capacidade Restante: 31
+  PRN Alocada: 150, custo = 98, tipo = 2
+  PRN Alocada: 42, custo = 21, tipo = 2
+GPU ID: 284, Num Tipos: 1, Capacidade Restante: 15
+  PRN Alocada: 585, custo = 98, tipo = 3
+  PRN Alocada: 572, custo = 37, tipo = 3
+GPU ID: 285, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 286, Num Tipos: 1, Capacidade Restante: 21
+  PRN Alocada: 314, custo = 88, tipo = 2
+  PRN Alocada: 59, custo = 41, tipo = 2
+GPU ID: 287, Num Tipos: 1, Capacidade Restante: 1
+  PRN Alocada: 192, custo = 75, tipo = 3
+  PRN Alocada: 298, custo = 74, tipo = 3
+GPU ID: 288, Num Tipos: 1, Capacidade Restante: 51
+  PRN Alocada: 133, custo = 99, tipo = 3
+GPU ID: 289, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 290, Num Tipos: 0, Capacidade Restante: 150
+GPU ID: 291, Num Tipos: 1, Capacidade Restante: 50
+  PRN Alocada: 561, custo = 100, tipo = 2
+GPU ID: 292, Num Tipos: 1, Capacidade Restante: 22
+  PRN Alocada: 343, custo = 61, tipo = 2
+  PRN Alocada: 194, custo = 67, tipo = 2
+GPU ID: 293, Num Tipos: 1, Capacidade Restante: 31
+  PRN Alocada: 554, custo = 98, tipo = 1
+  PRN Alocada: 304, custo = 21, tipo = 1
+GPU ID: 294, Num Tipos: 1, Capacidade Restante: 3
+  PRN Alocada: 260, custo = 75, tipo = 3
+  PRN Alocada: 95, custo = 72, tipo = 3
+GPU ID: 295, Num Tipos: 1, Capacidade Restante: 59
+  PRN Alocada: 19, custo = 91, tipo = 3

@@ -122,6 +122,7 @@ function solucaoInicial(listaPRNIn, listaGPUIn)
             if (alocado == false)
                 solValida = false
                 listaIdsPRN = shuffle(listaIdsPRN)
+                println("Solução inválida, tentando novamente...")
                 break
             end
         end
@@ -192,7 +193,7 @@ function temperaturaInicial(listaPRN, listaGPU)
     return T
 end
 
-function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
+function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
     count = 0
 
     novaMelhorSol = deepcopy(melhorSol)
@@ -232,6 +233,10 @@ function metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
 
             count += 1
         end
+        println("Iteração Metropolis: ", i, " Valor melhor solução: ", novaMelhorSol.valorFO)
+        if (time() - timeIn > TIMEOUT_LIMIT)
+            break
+        end
     end
     tempoIter = tempoIter / TEMPERATURE_LENGTH
     
@@ -251,7 +256,7 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
     while T > temperatura_minima
         limiteHeuristPRN = limiteTentPRNIsolada(temperaturaInicial, T)
         
-        melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN)
+        melhorSol, s, tempoIter = metropolis(s, T, melhorSol, vizinhanca, limiteHeuristPRN, timeIn)
         T = alpha * T
 
         count += 1
@@ -261,10 +266,12 @@ function simulatedAnnealing(s, T, alpha, temperatura_minima, vizinhanca)
         if (time() - timeIn > TIMEOUT_LIMIT)
             break
         end
+        println("===================================================")
+        println("Iteração: ", count, " Valor melhor solução: ", melhorSol.valorFO)
     end
     tempoTotal = time() - timeIn
 
-    println("Tempo médio exec. vizinhança: ", tempoTotalViz / count)
+    #println("Tempo médio exec. vizinhança: ", tempoTotalViz / count)
 
     return melhorSol, tempoTotal  # Retorna a melhor solução encontrada, quando T chegar a uma temperatura minima.
 end
